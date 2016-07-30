@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"  
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"   
+    xmlns:p="http://www.springframework.org/schema/p" 
+    xmlns:aop="http://www.springframework.org/schema/aop"  
+    xmlns:tx="http://www.springframework.org/schema/tx"  
+    xmlns:context="http://www.springframework.org/schema/context"  
+    xsi:schemaLocation="   
+          http://www.springframework.org/schema/beans   
+          http://www.springframework.org/schema/beans/spring-beans-3.1.xsd   
+          http://www.springframework.org/schema/tx   
+          http://www.springframework.org/schema/tx/spring-tx-3.1.xsd  
+          http://www.springframework.org/schema/context   
+          http://www.springframework.org/schema/context/spring-context-3.1.xsd   
+          http://www.springframework.org/schema/aop   
+          http://www.springframework.org/schema/aop/spring-aop-3.1.xsd" default-autowire="byName">
+          
+          <!-- 
+     <context:property-placeholder location="classpath:database.properties"/>
+	 <bean id="dataSource" destroy-method="close" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="${mysql.driverclass}" />
+		<property name="url" value="${mysql.jdbcurl}" />
+		<property name="username" value="${mysql.user}" />
+		<property name="password" value="${mysql.password}" />
+	 </bean>
+
+   	 <bean id="simpleJdbcTemplate" class="org.springframework.jdbc.core.simple.SimpleJdbcTemplate">
+		<constructor-arg>
+			<ref bean="dataSource"/>
+		</constructor-arg>
+	 </bean> 
+    
+     <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+	     <property name="dataSource">
+	         <ref bean="dataSource"/>
+	     </property>
+     </bean>
+           -->
+     
+    <!-- 扫描service、dao组件 -->
+    <context:component-scan base-package="cn.com.fml.mvc.dao" />
+    <context:component-scan base-package="cn.com.fml.mvc.service" />
+    <!-- 分解配置 jdbc.properites -->
+    <context:property-placeholder location="classpath:database.properties"/>
+	<bean id="dataSource" destroy-method="close" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="${mysql.driverclass}" />
+		<property name="url" value="${mysql.jdbcurl}" />
+		<property name="username" value="${mysql.user}" />
+		<property name="password" value="${mysql.password}" />
+	</bean>
+	 
+ 
+    <!-- 
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <property name="driverClass" value="${jdbc.driverClassName}" />
+        <property name="jdbcUrl" value="${jdbc.url}" />
+        <property name="user" value="${jdbc.username}" />
+        <property name="password" value="${jdbc.password}" />
+        <property name="maxPoolSize" value="${c3p0.pool.size.max}" />
+        <property name="minPoolSize" value="${c3p0.pool.size.min}" />
+        <property name="initialPoolSize" value="${c3p0.pool.size.ini}" />
+        <property name="acquireIncrement" value="${c3p0.pool.size.increment}" />
+    </bean>
+     -->
+    <!-- sessionFactory 将spring和mybatis整合 -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="configLocation" value="classpath:mybatis-config.xml" />
+    </bean>
+    
+    <!-- 事务 -->
+    <bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+    <tx:advice id="txAdvice" transaction-manager="txManager">
+        <tx:attributes>
+            <tx:method name="save*" propagation="REQUIRED" />
+            <tx:method name="insert*" propagation="REQUIRED" />
+            <tx:method name="update*" propagation="REQUIRED" />
+            <tx:method name="delete*" propagation="REQUIRED" />
+            <tx:method name="find" read-only="true" />
+            <tx:method name="get" read-only="true" />
+            <tx:method name="*" propagation="REQUIRED" />
+        </tx:attributes>
+    </tx:advice>
+    <aop:config>
+        <aop:pointcut expression="execution(* cn.com.fml.mvc.service.*.*(..))" id="pointCut" />
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="pointCut" />
+    </aop:config>     
+
+     
+	<bean id="tsUserDao" class="org.mybatis.spring.mapper.MapperFactoryBean">  
+    	<property name="mapperInterface" value="cn.com.fml.mvc.dao.intf.TsUserDao" />  
+    	<property name="sqlSessionFactory" ref="sqlSessionFactory" />  
+	</bean>
+	<bean id="tbHeadlinesDao" class="org.mybatis.spring.mapper.MapperFactoryBean">  
+    	<property name="mapperInterface" value="cn.com.fml.mvc.dao.intf.TbHeadlinesDao" />  
+    	<property name="sqlSessionFactory" ref="sqlSessionFactory" />  
+	</bean>
+	<bean id="tsRoleDao" class="org.mybatis.spring.mapper.MapperFactoryBean">  
+    	<property name="mapperInterface" value="cn.com.fml.mvc.dao.intf.TsRoleDao" />  
+    	<property name="sqlSessionFactory" ref="sqlSessionFactory" />  
+	</bean>
+	<bean id="tsAssetsDao" class="org.mybatis.spring.mapper.MapperFactoryBean">  
+    	<property name="mapperInterface" value="cn.com.fml.mvc.dao.intf.TsAssetsDao"/>
+    	<property name="sqlSessionFactory" ref="sqlSessionFactory" />  
+	</bean>
+	<bean id="TbHotBuildingDao" class="org.mybatis.spring.mapper.MapperFactoryBean">  
+    	<property name="mapperInterface" value="cn.com.fml.mvc.dao.intf.TbHotBuildingDao"/>
+    	<property name="sqlSessionFactory" ref="sqlSessionFactory" />  
+	</bean>
+     
+</beans>

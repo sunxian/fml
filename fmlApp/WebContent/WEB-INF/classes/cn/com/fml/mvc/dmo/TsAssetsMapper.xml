@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.fml.mvc.dao.intf.TsAssetsDao">
+
+	<insert id="insertTsAssets" parameterType="TsAssets">
+		insert into TS_ASSETS(CREATE_TIME,UPDATE_TIME,DELETE_FLAG,FILE_NAME,CONTENT_TYPE,STORE_PATH,FILE_SIZE,CODE) 
+		values(now(),now(),#{deleteFlag},#{fileName},#{contentType},#{storePath},#{fileSize},#{code})
+	</insert>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.fml.mvc.dao.intf.TbHotBuildingDao">
+	<!-- 取得精品楼盘列表 -->
+	<select id="getTbHotBuilding" resultType="TbHotBuilding" >
+		select a.TB_BUILDING_ID,a.NAME,
+		a.DESCRIPTION b.LABEL_ID,
+		c.AVERAGE_PRICE as label,d.STORE_PATH as imageUrl
+		from tb_hot_building a,TB_BUILDING_LABEL b,TB_BUILDING c,TS_ASSETS d where a.TB_BUILDING_ID=b.TB_BUILDING_ID
+		 d.CONTENT_TYPE='hotbuilding'
+	</select>
+
+</mapper>
