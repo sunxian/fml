@@ -12,7 +12,7 @@ import cn.com.fml.mvc.service.intf.UserService;
 
 @Controller
 @RequestMapping(value="/account")
-public class AccountController {
+public class AccountControllerTest {
 	
 	@Autowired
 	private UserService userService;

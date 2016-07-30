@@ -2,13 +2,20 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.com.fml.mvc.dao.intf.TbHotBuildingDao">
+
+	<resultMap id="hotBuildingInfo" type="java.util.Map">
+        <id property="id" column="ID" />
+        <result property="name" column="NAME" />
+        <result property="averagePrice" column="AVERAGE_PRICE" />
+        <result property="descp" column="DESCRIPTION" />
+    </resultMap>
+
 	<!-- 取得精品楼盘列表 -->
-	<select id="getTbHotBuilding" resultType="TbHotBuilding" >
-		select a.TB_BUILDING_ID,a.NAME,
-		a.DESCRIPTION b.LABEL_ID,
-		c.AVERAGE_PRICE as label,d.STORE_PATH as imageUrl
-		from tb_hot_building a,TB_BUILDING_LABEL b,TB_BUILDING c,TS_ASSETS d where a.TB_BUILDING_ID=b.TB_BUILDING_ID
-		 d.CONTENT_TYPE='hotbuilding'
+	<select id="getHotBuilding" resultMap="hotBuildingInfo" >
+		SELECT b.ID,b.NAME,b.AVERAGE_PRICE,h.DESCP
+		FROM tb_hot_building h 
+		JOIN tb_building b on b.id=h.TB_BUILDING_ID
+		WHERE h.DELETE_FLAG='0' ORDER BY h.DESCP ASC
 	</select>
 
 </mapper>

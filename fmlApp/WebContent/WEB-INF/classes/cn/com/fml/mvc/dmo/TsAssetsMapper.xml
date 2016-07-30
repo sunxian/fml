@@ -3,10 +3,39 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.com.fml.mvc.dao.intf.TsAssetsDao">
 
+	<resultMap id="assetsResultMap" type="TsAssets">
+        <id property="id" column="id" />
+        <result property="createTime" column="CREATE_TIME" />
+        <result property="updateTime" column="UPDATE_TIME" />
+        <result property="deleteFlag" column="DELETE_FLAG" />
+        <result property="fileName" column="FILE_NAME" />
+        <result property="contentType" column="CONTENT_TYPE" />
+        <result property="storePath" column="STORE_PATH" />
+        <result property="fileSize" column="FILE_SIZE" />
+        <result property="code" column="CODE" />
+        <result property="priority" column="PRIORITY" />
+        <result property="linkUrl" column="IMAGE_URL" />
+        <result property="imageUrl" column="LINK_URL" />
+    </resultMap>
+    
 	<insert id="insertTsAssets" parameterType="TsAssets">
 		insert into TS_ASSETS(CREATE_TIME,UPDATE_TIME,DELETE_FLAG,FILE_NAME,CONTENT_TYPE,STORE_PATH,FILE_SIZE,CODE) 
 		values(now(),now(),#{deleteFlag},#{fileName},#{contentType},#{storePath},#{fileSize},#{code})
 	</insert>
+	
+	
+	<select id="queryAssetsByCode" resultMap="assetsResultMap" parameterType="java.lang.String">
+		SELECT T.*
+		FROM TS_ASSETS T 
+		WHERE T.DELETE_FLAG='0' AND T.CODE=#{code} ORDER BY T.PRIORITY ASC
+	</select>
+	
+	<select id="queryHotBuildBigImage" resultType="String" parameterType="java.lang.Long">
+		select a.IMAGE_URL from tb_building_image b JOIN ts_assets a on a.id=b.ts_assets_id 
+		where b.delete_flag='0' and b.type='01' 
+		and b.tb_building_id=1 
+		ORDER BY b.priority asc
+	</select>
 </mapper>
 
 

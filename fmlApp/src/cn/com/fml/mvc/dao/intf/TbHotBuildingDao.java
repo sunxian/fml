@@ -1,7 +1,6 @@
 package cn.com.fml.mvc.dao.intf;
 import java.util.List;
-
-import cn.com.fml.mvc.dmo.TbHotBuilding;
+import java.util.Map;
 
 /**
  * @author hasee
@@ -9,5 +8,7 @@ import cn.com.fml.mvc.dmo.TbHotBuilding;
  *
  */
 public interface TbHotBuildingDao {
-	public List<TbHotBuilding> getTbHotBuilding();
+	
+	List<Map<String, Object>> getHotBuilding();
+	
 }

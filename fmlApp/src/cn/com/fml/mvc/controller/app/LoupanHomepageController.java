@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import cn.com.fml.mvc.service.intf.HotBuildingService;
+import cn.com.fml.mvc.service.intf.BuildingService;
 
 /**
  * @author hasee
@@ -15,7 +15,7 @@ import cn.com.fml.mvc.service.intf.HotBuildingService;
 @RequestMapping(value="/app/loupanhome")
 public class LoupanHomepageController {
 	@Autowired
-private HotBuildingService hotBuildingService;
+private BuildingService hotBuildingService;
 	
 	
 }

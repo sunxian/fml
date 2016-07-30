@@ -9,5 +9,13 @@ import cn.com.fml.mvc.dmo.TbHeadlines;
  *
  */
 public interface TbHeadlinesDao {
-    public List<TbHeadlines> getTbHeadlines();
-    }
+
+	public List<TbHeadlines> getTbHeadlines();
+
+	/**
+	 * 获取楼盘首页最新头条数据
+	 * @return
+	 */
+	TbHeadlines getTopOneHeadLines();
+	
+}

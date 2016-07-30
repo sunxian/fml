@@ -18,6 +18,12 @@ public class TsAssets extends BaseDmo implements Serializable {
 	private long fileSize;
 
 	private String code;
+	
+	private int priority;
+	
+	private String linkUrl;
+	
+	private String imageUrl;
 
 
 	public String getFileName() {
@@ -60,4 +66,29 @@ public class TsAssets extends BaseDmo implements Serializable {
 		this.code = code;
 	}
 
+	public int getPriority() {
+		return priority;
+	}
+
+	public void setPriority(int priority) {
+		this.priority = priority;
+	}
+
+	public String getLinkUrl() {
+		return linkUrl;
+	}
+
+	public void setLinkUrl(String linkUrl) {
+		this.linkUrl = linkUrl;
+	}
+
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
+
+	
 }

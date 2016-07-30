@@ -10,7 +10,7 @@ public class TbHotBuilding extends BaseDmo implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private int tbBuildingId;//楼盘id
 	private String name;//楼盘名称
-	private String description;//楼盘描述
+	private String descp;//楼盘描述
 	private int label;//楼盘标签
 	private String averagePrice;//均价
 	private String imageUrl;//图片地址
@@ -44,11 +44,11 @@ public class TbHotBuilding extends BaseDmo implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getDescription() {
-		return description;
+	public String getDescp() {
+		return descp;
 	}
-	public void setDescription(String description) {
-		this.description = description;
+	public void setDescp(String descp) {
+		this.descp = descp;
 	}
 	
 
