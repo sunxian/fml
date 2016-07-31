@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.fml.mvc.dao.intf.HouseTypeDao">
+
+	<resultMap id="houseTypeInfo" type="java.util.Map">
+        <id property="id" column="ID" />
+        <result property="name" column="NAME" />
+        <result property="imageUrl" column="IMAGE_URL" />
+        <result property="desc" column="DESCP" />
+        <result property="bedrooms" column="BEDROOMS" />
+        <result property="square" column="SQUARE" />
+    </resultMap>
+	
+	<select id="queryHouseTypeList" resultMap="houseTypeInfo" >
+		SELECT ID,NAME,IMAGE_URL,DESCP,BEDROOMS,SQUARE FROM TB_HOUSE_TYPE
+		WHERE DELETE_FLAG='0' AND TB_BUILDING_ID=#{buildingId} 
+		ORDER BY UPDATE_TIME DESC
+	</select>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

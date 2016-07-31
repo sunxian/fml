@@ -106,8 +106,20 @@
     	<property name="mapperInterface" value="cn.com.fml.mvc.dao.intf.TsAssetsDao"/>
     	<property name="sqlSessionFactory" ref="sqlSessionFactory" />  
 	</bean>
-	<bean id="TbHotBuildingDao" class="org.mybatis.spring.mapper.MapperFactoryBean">  
+	<bean id="tbHotBuildingDao" class="org.mybatis.spring.mapper.MapperFactoryBean">  
     	<property name="mapperInterface" value="cn.com.fml.mvc.dao.intf.TbHotBuildingDao"/>
+    	<property name="sqlSessionFactory" ref="sqlSessionFactory" />  
+	</bean>
+	<bean id="developersNewsDao" class="org.mybatis.spring.mapper.MapperFactoryBean">  
+    	<property name="mapperInterface" value="cn.com.fml.mvc.dao.intf.DevelopersNewsDao"/>
+    	<property name="sqlSessionFactory" ref="sqlSessionFactory" />  
+	</bean>
+	<bean id="houseTypeDao" class="org.mybatis.spring.mapper.MapperFactoryBean">  
+    	<property name="mapperInterface" value="cn.com.fml.mvc.dao.intf.HouseTypeDao"/>
+    	<property name="sqlSessionFactory" ref="sqlSessionFactory" />  
+	</bean>
+	<bean id="houseBanDao" class="org.mybatis.spring.mapper.MapperFactoryBean">  
+    	<property name="mapperInterface" value="cn.com.fml.mvc.dao.intf.HouseBanDao"/>
     	<property name="sqlSessionFactory" ref="sqlSessionFactory" />  
 	</bean>
      

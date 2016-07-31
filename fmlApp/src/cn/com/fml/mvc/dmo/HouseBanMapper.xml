@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.fml.mvc.dao.intf.HouseBanDao">
+
+	<resultMap id="houseBanInfo" type="java.util.Map">
+        <id property="id" column="ID" />
+        <result property="name" column="NAME" />
+        <result property="units" column="UNITS" />
+        <result property="layers" column="LAYERS" />
+        <result property="houseRatio" column="HOUSE_RATIO" />
+    </resultMap>
+	
+	<select id="queryHouseBanList" resultMap="houseBanInfo" >
+		SELECT ID,NAME,UNITS,LAYERS,HOUSE_RATIO FROM TB_HOUSE_BAN 
+		WHERE DELETE_FLAG='0' AND IS_SALING_FLAG='1' AND TB_BUILDING_ID=#{buildingId} 	
+		ORDER BY UPDATE_TIME DESC
+	</select>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

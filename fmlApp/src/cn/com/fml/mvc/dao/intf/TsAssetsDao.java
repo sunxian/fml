@@ -1,6 +1,7 @@
 package cn.com.fml.mvc.dao.intf;
 
 import java.util.List;
+import java.util.Map;
 
 import cn.com.fml.mvc.dmo.TsAssets;
 
@@ -10,5 +11,5 @@ public interface TsAssetsDao {
 	
 	List<TsAssets> queryAssetsByCode(String code);
 	
-	String queryHotBuildBigImage(Long buildId);
+	List<String> queryBuildImage(Map<String, Object> parm);
 }

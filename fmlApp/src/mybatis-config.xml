@@ -15,5 +15,8 @@
 		<mapper resource="cn/com/fml/mvc/dmo/TsAssetsMapper.xml" />
 		<mapper resource="cn/com/fml/mvc/dmo/TbHeadlinesMapper.xml" />
 		<mapper resource="cn/com/fml/mvc/dmo/TbHotBuildingMapper.xml" />
+		<mapper resource="cn/com/fml/mvc/dmo/DevelopersNewsMapper.xml" />
+		<mapper resource="cn/com/fml/mvc/dmo/HouseTypeMapper.xml" />
+		<mapper resource="cn/com/fml/mvc/dmo/HouseBanMapper.xml" />
 	</mappers>
 </configuration> 

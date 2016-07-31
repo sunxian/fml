@@ -11,6 +11,12 @@ public interface TbHotBuildingDao {
 	
 	List<Map<String, Object>> getCollectionBuilding(Long userId);
 	
-	List<Map<String, Object>> getHotBuilding();
+	List<Map<String, Object>> getHotBuilding(Long userId);
+	
+	Map<String, Object> getBuildingById(Long buildingId);
+	
+	List<String> getBuildingLabel(Long buildingId);
+	
+	List<Map<String, Object>> getCommissionByBuildingId(Map<String, Object> param);
 	
 }

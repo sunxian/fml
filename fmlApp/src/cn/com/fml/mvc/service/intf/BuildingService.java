@@ -4,6 +4,8 @@ import java.util.Map;
 
 public interface BuildingService {
 	
-	List<Map<String, Object>> getHotBuilding() throws Exception;
+	List<Map<String, Object>> getHotBuilding(Long userId) throws Exception;
+	
+	Map<String, Object> getBuildingById(Long buildingId, Long roleId) throws Exception;
 	
 }

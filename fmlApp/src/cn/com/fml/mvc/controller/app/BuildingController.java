@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,8 +41,24 @@ public class BuildingController {
 		map.put("topImages", assetsByCode);
 		Map<String, Object> headLines = headlinesService.getTopOneHeadLines();
 		map.put("categoryCode", headLines);
-		List<Map<String, Object>> hotBuilding = buildingService.getHotBuilding();
+		List<Map<String, Object>> hotBuilding = buildingService.getHotBuilding(1L);
 		map.put("hotBuilding", hotBuilding);
+		
+		return map;
+	}
+	
+	@RequestMapping("/buildingDetail")
+	@ResponseBody
+	public Map<String, Object> buildingDetail(HttpServletRequest request, HttpServletResponse resp) throws Exception {
+		Map<String, Object> map = new HashMap<String, Object>();
+		String buildingId = request.getParameter("id");
+		if (StringUtils.isBlank(buildingId)) {
+			map.put("errorCode", FmlConstants.ERROR_CODE_TYPE1);
+			return map;
+		}
+		Long roleId = 1L;
+		Map<String, Object> buildIngDetail = buildingService.getBuildingById(new Long(buildingId), roleId);
+		map.putAll(buildIngDetail);
 		
 		return map;
 	}

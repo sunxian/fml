@@ -7,15 +7,75 @@
         <id property="id" column="ID" />
         <result property="name" column="NAME" />
         <result property="averagePrice" column="AVERAGE_PRICE" />
-        <result property="descp" column="DESCRIPTION" />
+        <result property="desc" column="DESCP" />
+        <result property="label" column="FLAG" />
     </resultMap>
+    
+	<resultMap id="buildingDetail" type="java.util.Map">
+        <id property="id" column="ID" />
+        <result property="name" column="NAME" />
+        <result property="averagePrice" column="AVERAGE_PRICE" />
+        <result property="newsUpdate" column="NEWS_UPDATE" />
+        <result property="address" column="ADDRESS" />
+        <result property="leadTime" column="LEAD_TIME" />
+        <result property="propertyType" column="PROPERTY_TYPE" />
+        <result property="buildingType" column="BUILDING_TYPE" />
+        <result property="renovationStatus" column="RENOVATION_STATUS" />
+        <result property="households" column="HOUSEHOLDS" />
+        <result property="volumeRatio" column="VOLUME_RATIO" />
+        <result property="greeningRate" column="GREENING_RATE" />
+        <result property="parkingSpace" column="PARKING_SPACE" />
+        <result property="periodOfRights" column="PERIOD_OF_RIGHTS" />
+        <result property="developersName" column="DEVELOPERS_NAME" />
+        <result property="preSalePermit" column="PRE_SALE_PERMIT" />
+        <result property="propertyCompany" column="PROPERTY_COMPANY" />
+    </resultMap>
+
+	<resultMap id="commissionInfo" type="java.util.Map">
+        <id property="id" column="ID" />
+        <result property="amount" column="AMOUNT" />
+        <result property="type" column="TYPE" />
+    </resultMap>
+    
+	<!-- 取得用户关注楼盘列表 -->
+	<select id="getCollectionBuilding" resultMap="hotBuildingInfo" >
+		SELECT b.ID,b.NAME,b.AVERAGE_PRICE,b.DESCP,b.FLAG FROM TB_BUILDING_COLLECTION c 
+		JOIN tb_building b on b.ID=c.tb_building_id where c.delete_flag='0'
+		and ts_user_id=#{userId} ORDER BY c.UPDATE_TIME DESC
+	</select>
 
 	<!-- 取得精品楼盘列表 -->
 	<select id="getHotBuilding" resultMap="hotBuildingInfo" >
-		SELECT b.ID,b.NAME,b.AVERAGE_PRICE,h.DESCP
+		SELECT b.ID,b.NAME,b.AVERAGE_PRICE,b.DESCP,b.FLAG
 		FROM tb_hot_building h 
 		JOIN tb_building b on b.id=h.TB_BUILDING_ID
-		WHERE h.DELETE_FLAG='0' ORDER BY h.DESCP ASC
+		WHERE h.DELETE_FLAG='0' 
+		AND h.TB_BUILDING_ID not in 
+		(SELECT c.tb_building_id FROM TB_BUILDING_COLLECTION c where c.ts_user_id=#{userId})
+		ORDER BY h.UPDATE_TIME DESC
 	</select>
+
+	<!-- 取得楼盘详情 -->
+	<select id="getBuildingById" resultMap="buildingDetail" >
+		select ID,NAME,AVERAGE_PRICE,NEWS_UPDATE,ADDRESS,LEAD_TIME,
+		PROPERTY_TYPE,BUILDING_TYPE,RENOVATION_STATUS,HOUSEHOLDS,VOLUME_RATIO,
+		GREENING_RATE,PARKING_SPACE,PERIOD_OF_RIGHTS,DEVELOPERS_NAME,PRE_SALE_PERMIT,
+		PROPERTY_COMPANY
+		from tb_building
+		where DELETE_FLAG='0' AND id=#{buildingId}
+	</select>
+	
+	<!-- 取得楼盘标签 -->
+	<select id="getBuildingLabel" resultType="String" >
+		select label_name from tb_building_label 
+		where delete_flag='0' and TB_BUILDING_ID =#{buildingId}
+	</select>
+	
+	<!-- 取得佣金列表 -->
+	<select id="getCommissionByBuildingId" resultMap="commissionInfo" parameterType="java.util.Map">
+		SELECT id,amount,type from tb_commission where DELETE_FLAG='0' and TS_ROLE_ID=#{roleId} and TB_BUILDING_ID=#{buildingId}
+	</select>
+	
+	
 
 </mapper>

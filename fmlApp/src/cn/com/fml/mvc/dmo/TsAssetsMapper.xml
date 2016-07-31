@@ -30,12 +30,15 @@
 		WHERE T.DELETE_FLAG='0' AND T.CODE=#{code} ORDER BY T.PRIORITY ASC
 	</select>
 	
-	<select id="queryHotBuildBigImage" resultType="String" parameterType="java.lang.Long">
+	<select id="queryBuildImage" resultType="String" parameterType="java.util.Map">
 		select a.IMAGE_URL from tb_building_image b JOIN ts_assets a on a.id=b.ts_assets_id 
-		where b.delete_flag='0' and b.type='01' 
-		and b.tb_building_id=1 
+		where b.delete_flag='0' and b.type=#{typeCode} 
+		and b.tb_building_id=#{buildId} 
 		ORDER BY b.priority asc
 	</select>
+	
+	
+	
 </mapper>
 
 
