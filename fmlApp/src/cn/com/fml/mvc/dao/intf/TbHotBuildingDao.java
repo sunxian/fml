@@ -9,6 +9,8 @@ import java.util.Map;
  */
 public interface TbHotBuildingDao {
 	
+	List<Map<String, Object>> getCollectionBuilding(Long userId);
+	
 	List<Map<String, Object>> getHotBuilding();
 	
 }

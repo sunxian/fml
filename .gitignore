@@ -45,3 +45,5 @@ Temporary Items
 *.classpath
 *.class
 *.class
+fmlApp/.classpath
+*.classpath

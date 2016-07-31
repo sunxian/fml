@@ -10,8 +10,6 @@ drop table if exists TB_BUILDING;
 
 drop table if exists TB_BUILDING_IMAGE;
 
-drop table if exists TB_BUILDING_LABEL;
-
 drop table if exists TB_COMMISSION;
 
 drop table if exists TB_COOPERATION_BUILDING;
@@ -133,21 +131,20 @@ create table TB_BUILDING_IMAGE
 alter table TB_BUILDING_IMAGE comment '楼盘图片关联表';
 
 /*==============================================================*/
-/* Table: TB_BUILDING_LABEL                                     */
+/* Table: TB_BUILDING_COLLECTION                                */
 /*==============================================================*/
-create table TB_BUILDING_LABEL
+create table TB_BUILDING_COLLECTION
 (
    ID                   bigint not null auto_increment,
    CREATE_TIME          datetime,
    UPDATE_TIME          datetime,
    DELETE_FLAG          char(1) comment '1:逻辑删除',
    TB_BUILDING_ID       bigint comment '楼盘ID',
-   LABEL_ID             bigint comment '标签ID 主数据表',
-   SHOW_FLAG            char(1) comment '是否展示：0不展示，1展示',
+   TS_USER_ID           bigint comment '用户id',
    primary key (ID)
 );
 
-alter table TB_BUILDING_LABEL comment '楼盘标签/属性';
+alter table TB_BUILDING_COLLECTION comment '楼盘收藏表';
 
 /*==============================================================*/
 /* Table: TB_COMMISSION                                         */
@@ -596,14 +593,7 @@ INSERT INTO `fml`.`tb_building_image` (`ID`, `CREATE_TIME`, `UPDATE_TIME`, `DELE
 INSERT INTO `fml`.`ts_assets` (`ID`, `CREATE_TIME`, `UPDATE_TIME`, `DELETE_FLAG`, `FILE_NAME`, `CONTENT_TYPE`, `STORE_PATH`, `FILE_SIZE`, `CODE`, `PRIORITY`, `IMAGE_URL`, `LINK_URL`) VALUES ('1', '2016-07-30 18:33:55', '2016-07-30 18:33:58', '0', 'topImage1.png', NULL, NULL, NULL, '01', '1', 'https://image2.suning.cn/uimg/cms/img/146821740560176967.jpg', 'https://licai.suning.com/lcportal/portal/fund/list.htm?channelCode=PC_LCSY_daohang4');
 INSERT INTO `fml`.`ts_assets` (`ID`, `CREATE_TIME`, `UPDATE_TIME`, `DELETE_FLAG`, `FILE_NAME`, `CONTENT_TYPE`, `STORE_PATH`, `FILE_SIZE`, `CODE`, `PRIORITY`, `IMAGE_URL`, `LINK_URL`) VALUES ('2', '2016-07-30 18:34:22', '2016-07-30 18:34:25', '0', 'topImage2.png', NULL, NULL, NULL, '01', '2', 'https://image5.suning.cn/uimg/cms/img/146821169930457793.jpg', 'https://licai.suning.com/lcportal/portal/period/list.htm?channelCode=PC_LCSY_daohang3');
 INSERT INTO `fml`.`ts_assets` (`ID`, `CREATE_TIME`, `UPDATE_TIME`, `DELETE_FLAG`, `FILE_NAME`, `CONTENT_TYPE`, `STORE_PATH`, `FILE_SIZE`, `CODE`, `PRIORITY`, `IMAGE_URL`, `LINK_URL`) VALUES ('3', '2016-07-30 22:11:29', '2016-07-30 22:11:32', '0', 'hotBuildingImage.png', NULL, NULL, NULL, '02', '1', 'https://image5.suning.cn/uimg/cms/img/146821169930457793.jpg', NULL);
-INSERT INTO `fml`.`tb_building_label` (`ID`, `CREATE_TIME`, `UPDATE_TIME`, `DELETE_FLAG`, `TB_BUILDING_ID`, `LABEL_ID`, `SHOW_FLAG`) VALUES ('1', '2016-07-30 22:27:37', '2016-07-30 22:27:39', '0', '1', NULL, '1');
 INSERT INTO `fml`.`ts_code_detail` (`ID`, `CREATE_TIME`, `UPDATE_TIME`, `DELETE_FLAG`, `PARENT_ID`, `CODE`, `VALUE`, `TS_CODE_LIST_ID`, `REMARK`) VALUES ('1', '2016-07-30 22:24:13', '2016-07-30 22:24:15', '0', NULL, 'NEW', '1', '1', '新楼盘');
 INSERT INTO `fml`.`ts_code_detail` (`ID`, `CREATE_TIME`, `UPDATE_TIME`, `DELETE_FLAG`, `PARENT_ID`, `CODE`, `VALUE`, `TS_CODE_LIST_ID`, `REMARK`) VALUES ('2', '2016-07-30 22:24:55', '2016-07-30 22:24:56', '0', NULL, 'HEART', '2', '1', '关注');
 INSERT INTO `fml`.`ts_code_list` (`ID`, `CREATE_TIME`, `UPDATE_TIME`, `DELETE_FLAG`, `NAME`, `CODE`, `REMARK`) VALUES ('1', '2016-07-30 22:20:11', '2016-07-30 22:20:13', '0', '楼盘标签', 'BuildingLabel', '楼盘标签');
 INSERT INTO `fml`.`tb_headlines` (`ID`, `CREATE_TIME`, `UPDATE_TIME`, `DELETE_FLAG`, `TITLE`, `RELEASE_TIME`, `CONTENT`) VALUES ('1', '2016-07-30 20:08:23', '2016-07-30 20:08:24', '0', '买房新技能你get了吗？', '2016-07-30 20:08:43', '买房新技能你get了吗？测试数据');
-
-
-
-
-
-
