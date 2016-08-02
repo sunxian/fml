@@ -34,7 +34,6 @@ public class DevelopersNewsController {
 			map.put("errorCode", FmlConstants.ERROR_CODE_TYPE1);
 			return map;
 		}
-		
 		map.put("success",newsList);
 		return map;
 }

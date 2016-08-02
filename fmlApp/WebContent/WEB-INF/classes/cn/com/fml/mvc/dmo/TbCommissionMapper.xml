@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.fml.mvc.dao.intf.TbCommissionDao">
+	<!-- 取得佣金详情列表 -->
+	<resultMap id="commissionInfo" type="java.util.Map">
+        <id property="id" column="ID" />
+        <result property="amount" column="AMOUNT" />
+        <result property="type" column="TYPE" />
+        <result property="settlementNode" column="SETTLEMENT_NODE" />
+        <result property="descp" column="DESCP" />
+    </resultMap>
+
+<select id="getCommissionById" resultMap="commissionInfo" parameterType="java.util.Map">
+		SELECT amount,type,SETTLEMENT_NODE,DESCP from tb_commission where DELETE_FLAG='0' and id=#{id} 
+	</select>
+</mapper>
