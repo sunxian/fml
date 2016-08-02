@@ -47,3 +47,7 @@ Temporary Items
 *.class
 fmlApp/.classpath
 *.classpath
+*.class
+fmlApp/WebContent/WEB-INF/classes/mybatis-config.xml
+fmlApp/WebContent/WEB-INF/classes/mybatis-config.xml
+fmlApp/WebContent/WEB-INF/classes/mybatis-config.xml

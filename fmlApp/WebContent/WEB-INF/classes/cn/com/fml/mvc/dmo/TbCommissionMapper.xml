@@ -8,7 +8,7 @@
         <result property="amount" column="AMOUNT" />
         <result property="type" column="TYPE" />
         <result property="settlementNode" column="SETTLEMENT_NODE" />
-        <result property="descp" column="DESCP" />
+        <result property="desc" column="DESCP" />
     </resultMap>
 
 <select id="getCommissionById" resultMap="commissionInfo" parameterType="java.util.Map">

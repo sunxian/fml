@@ -73,11 +73,7 @@ public class BuildingServiceImpl implements BuildingService{
 			newsMap.put("total", total);
 			map.put("newsList", newsMap);
 		}
-<<<<<<< HEAD
 		//获取楼盘佣金信息
-=======
-		//佣金
->>>>>>> origin
 		List<Map<String,Object>> commissionInfo = getCommissionInfo(buildingId, roleId);
 		map.put("commissionList", commissionInfo);
 		//主力户型列表
