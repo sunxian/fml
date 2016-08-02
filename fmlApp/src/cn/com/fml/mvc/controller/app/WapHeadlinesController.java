@@ -28,7 +28,6 @@ public class WapHeadlinesController {
 	public Map<String, Object> getHeadlines(HttpServletRequest request, HttpServletResponse resp) throws Exception{
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		List<TbHeadlines> list=headlinesService.getHeadlines();
-		 //list=(List<TbHeadlines>) headlinesService.getHeadlines();
 		if(list==null)
 			{map.put("error", "00");}//未查询到数据
  else {

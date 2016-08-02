@@ -122,5 +122,9 @@
     	<property name="mapperInterface" value="cn.com.fml.mvc.dao.intf.HouseBanDao"/>
     	<property name="sqlSessionFactory" ref="sqlSessionFactory" />  
 	</bean>
+	<bean id="tbCommissionDao" class="org.mybatis.spring.mapper.MapperFactoryBean">  
+    	<property name="mapperInterface" value="cn.com.fml.mvc.dao.intf.TbCommissionDao"/>
+    	<property name="sqlSessionFactory" ref="sqlSessionFactory" />  
+	</bean>
      
 </beans>
