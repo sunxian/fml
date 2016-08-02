@@ -36,6 +36,20 @@
         <result property="amount" column="AMOUNT" />
         <result property="type" column="TYPE" />
     </resultMap>
+
+	<resultMap id="coopBuildingInfo" type="java.util.Map">
+        <id property="id" column="ID" />
+        <result property="name" column="NAME" />
+        <result property="averagePrice" column="AVERAGE_PRICE" />
+        <result property="address" column="ADDRESS" />
+    </resultMap>
+    
+	<resultMap id="buildingRegion" type="java.util.Map">
+        <result property="minSquare" column="MINSQUARE" />
+        <result property="maxSquare" column="MAXSQUARE" />
+        <result property="minRooms" column="MINBEDROOMS" />
+        <result property="maxRooms" column="MAXBEDROOMS" />
+    </resultMap>
     
 	<!-- 取得用户关注楼盘列表 -->
 	<select id="getCollectionBuilding" resultMap="hotBuildingInfo" >
@@ -76,6 +90,20 @@
 		SELECT id,amount,type from tb_commission where DELETE_FLAG='0' and TS_ROLE_ID=#{roleId} and TB_BUILDING_ID=#{buildingId}
 	</select>
 	
+
+	<!-- 取得合作楼盘 -->
+	<select id="getCoopBuildings" resultMap="coopBuildingInfo" >
+		SELECT b.ID,b.NAME,b.AVERAGE_PRICE,b.ADDRESS FROM tb_cooperation_building c 
+		JOIN tb_building b on b.ID=c.COOPERATIONBUILDING_ID
+		where c.DELETE_FLAG='0' and c.TB_BUILDING_ID=#{buildingId}
+		ORDER BY c.UPDATE_TIME DESC
+	</select>
 	
+	<!-- 取得房间区间，面积区间 -->
+	<select id="getBuildingRegion" resultMap="buildingRegion" >
+		SELECT MIN(SQUARE) AS MINSQUARE,MAX(SQUARE) AS MAXSQUARE,
+		MIN(BEDROOMS) AS MINBEDROOMS,MAX(BEDROOMS) AS MAXBEDROOMS FROM tb_house_type t 
+		where DELETE_FLAG='0' AND IS_SALING_FLAG='1' AND TB_BUILDING_ID=#{buildingId}
+	</select>
 
 </mapper>

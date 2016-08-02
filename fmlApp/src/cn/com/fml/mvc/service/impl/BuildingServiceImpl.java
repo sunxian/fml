@@ -73,6 +73,7 @@ public class BuildingServiceImpl implements BuildingService{
 			newsMap.put("total", total);
 			map.put("newsList", newsMap);
 		}
+		//获取楼盘佣金信息
 		List<Map<String,Object>> commissionInfo = getCommissionInfo(buildingId, roleId);
 		map.put("commissionList", commissionInfo);
 		//主力户型列表
@@ -86,6 +87,38 @@ public class BuildingServiceImpl implements BuildingService{
 			map.put("houseBan", banList);
 		}
 		return map;
+	}
+	
+	@Override
+	public List<Map<String, Object>> coopBuildingsById(Long buildingId, Long roleId) throws Exception {
+		List<Map<String, Object>> coopBuildings = tbHotBuildingDao.getCoopBuildings(buildingId);
+		if (!CollectionUtils.isEmpty(coopBuildings)) {
+			for (Map<String, Object> map : coopBuildings) {
+				//获取合作楼盘列表缩略图
+				List<String> list = queryBuildIngImage(map.get("id"), FmlConstants.AssetsCode.LIST_PAGE_SNAPSHORT);
+				String imageUrl = "";
+				if (!CollectionUtils.isEmpty(list)) {
+					imageUrl = list.get(0);
+				}
+				map.put("imageUrl", imageUrl);
+				//获取合作楼盘佣金信息
+				List<Map<String,Object>> commissionInfo = getCommissionInfo(buildingId, roleId);
+				String commission = "";
+				if (!CollectionUtils.isEmpty(commissionInfo)) {
+					Object commObj= commissionInfo.get(0).get("amount");
+					commission = commObj!= null ? commObj.toString() : "";
+				}
+				map.put("commission", commission);
+				//房间区间，面积区间
+				Map<String, Object> region = tbHotBuildingDao.getBuildingRegion(buildingId);
+				map.putAll(region);
+				//获取标签列表
+				List<String> label = tbHotBuildingDao.getBuildingLabel(buildingId);
+				map.put("labels", label);
+			}
+		}
+		
+		return coopBuildings;
 	}
 	
 	private List<String> queryBuildIngImage(Object buildingId, String typeCode) {

@@ -56,10 +56,27 @@ public class BuildingController {
 			map.put("errorCode", FmlConstants.ERROR_CODE_TYPE1);
 			return map;
 		}
+		//TODO
 		Long roleId = 1L;
 		Map<String, Object> buildIngDetail = buildingService.getBuildingById(new Long(buildingId), roleId);
 		map.putAll(buildIngDetail);
 		
+		return map;
+	}
+	
+	@RequestMapping("/coopBuildings")
+	@ResponseBody
+	public Map<String, Object> coopBuildings(HttpServletRequest request, HttpServletResponse resp) throws Exception {
+		Map<String, Object> map = new HashMap<String, Object>();
+		String buildingId = request.getParameter("id");
+		if (StringUtils.isBlank(buildingId)) {
+			map.put("errorCode", FmlConstants.ERROR_CODE_TYPE1);
+			return map;
+		}
+		//TODO
+		Long roleId = 1L;
+		List<Map<String, Object>> coopBuildingsMap = buildingService.coopBuildingsById(new Long(buildingId), roleId);
+		map.put("value", coopBuildingsMap);
 		return map;
 	}
 	
