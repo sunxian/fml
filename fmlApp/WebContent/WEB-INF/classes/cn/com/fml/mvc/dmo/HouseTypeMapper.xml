@@ -10,20 +10,27 @@
         <result property="desc" column="DESCP" />
         <result property="bedrooms" column="BEDROOMS" />
         <result property="square" column="SQUARE" />
+         <result property="totalPrice" column="TOTAL_PRICE" />
+        <result property="livingRooms" column="LIVING_ROOMS" />
+        <result property="square" column="SQUARE" />
+        <result property="toilets" column="TOILETS" />
+        <result property="isSalingflag" column="IS_SALING_FLAG" />
+    
     </resultMap>
+	<resultMap type="java.util.List" id=""></resultMap>
 	
 	<select id="queryHouseTypeList" resultMap="houseTypeInfo" >
 		SELECT ID,NAME,IMAGE_URL,DESCP,BEDROOMS,SQUARE FROM TB_HOUSE_TYPE
 		WHERE DELETE_FLAG='0' AND TB_BUILDING_ID=#{buildingId} 
 		ORDER BY UPDATE_TIME DESC
 	</select>
+	<select id="queryHouseTypeList1" resultMap="houseTypeInfo" >
+		SELECT IMAGE_URL,DESCP,LIVING_ROOMS,BEDROOMS,TOTAL_PRICE,TOILETS,SQUARE,IS_SALING_FLAG FROM TB_HOUSE_TYPE 
+		WHERE DELETE_FLAG='0' AND TB_BUILDING_ID=#{buildingId}
+		ORDER BY UPDATE_TIME DESC
+	</select>
 	
 </mapper>
-
-
-
-
-
 
 
 

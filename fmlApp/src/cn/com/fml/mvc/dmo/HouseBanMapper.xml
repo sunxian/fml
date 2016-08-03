@@ -9,19 +9,31 @@
         <result property="units" column="UNITS" />
         <result property="layers" column="LAYERS" />
         <result property="houseRatio" column="HOUSE_RATIO" />
+         <result property="openTime" column="OPEN_TIME" />
+        <result property="leadTime" column="LEAD_TIME" />
+         <result property="imageUrl" column="IMAGE_URL" />
+        <result property="salingHouses" column="SALING_HOUSES" />
+        <result property="mainHouseType" column="NAME1" />
     </resultMap>
+    
+	
 	
 	<select id="queryHouseBanList" resultMap="houseBanInfo" >
 		SELECT ID,NAME,UNITS,LAYERS,HOUSE_RATIO FROM TB_HOUSE_BAN 
 		WHERE DELETE_FLAG='0' AND IS_SALING_FLAG='1' AND TB_BUILDING_ID=#{buildingId} 	
 		ORDER BY UPDATE_TIME DESC
 	</select>
-	
-
+	<!--楼栋信息接口-->
+	<select id="queryHouseBanList1" resultMap="houseBanInfo" >
+		SELECT a.ID,a.NAME,a.OPEN_TIME,a.LEAD_TIME,a.IMAGE_URL,a.UNITS,a.SALING_HOUSES,a.LAYERS,a.HOUSE_RATIO,b.NAME as NAME1 FROM TB_HOUSE_BAN a
+		JOIN TB_HOUSE_TYPE b  on a.ID=b.TB_HOUSE_BAN_ID
+		WHERE a.DELETE_FLAG='0' AND a.IS_SALING_FLAG='1' AND a.TB_BUILDING_ID=#{buildingId} AND b.IS_MAIN_FLAG='1'	
+		ORDER BY a.UPDATE_TIME DESC
+	</select>
+<select id="queryOtherhouseType" resultType="java.lang.String">
+SELECT NAME from TB_HOUSE_TYPE WHERE DELETE_FLAG='0' AND IS_MAIN_FLAG='0'
+</select>
 </mapper>
-
-
-
 
 
 
