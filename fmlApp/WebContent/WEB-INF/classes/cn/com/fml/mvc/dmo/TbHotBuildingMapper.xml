@@ -85,6 +85,12 @@
 		where delete_flag='0' and TB_BUILDING_ID =#{buildingId}
 	</select>
 	
+	<!-- 取得户型标签 -->
+	<select id="getHouseTypeLabel" resultType="String" >
+		select label_name from TB_HOUSE_TYPE_LABEL 
+		where delete_flag='0' and TB_BUILDING_ID =#{buildingId}  
+	</select>	
+	
 	<!-- 取得佣金列表 -->
 	<select id="getCommissionByBuildingId" resultMap="commissionInfo" parameterType="java.util.Map">
 		SELECT id,amount,type from tb_commission where DELETE_FLAG='0' and TS_ROLE_ID=#{roleId} and TB_BUILDING_ID=#{buildingId}

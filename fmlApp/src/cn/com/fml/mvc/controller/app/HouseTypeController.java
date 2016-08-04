@@ -24,23 +24,27 @@ import cn.com.fml.mvc.service.intf.HouseTypeService;
  */
 @Controller
 @RequestMapping(value="/app")
-public class HouseTypeController extends HouseTypeServiceImpl{
+public class HouseTypeController extends HouseTypeServiceImpl {
+	
 	@Autowired
 	private HouseTypeService houseTypeService;
+	
 	@RequestMapping(value="/houseType")
 	@ResponseBody
-	public Map<String, Object> getHouseTypeList(HttpServletRequest request, HttpServletResponse resp) throws Exception{
+	public Map<String, Object> getHouseTypeList(HttpServletRequest request, HttpServletResponse resp) throws Exception {
 		Map<String, Object> map = new HashMap<String, Object>();
-		String buildingId= request.getParameter("id");
-		List<Map<String, Object>> houseTypeList=houseTypeService.queryHouseTypeList1(new Long(buildingId));
-		//List<String> houseTypeLabels=houseTypeService.getHouseTypeLabel();
+		String buildingId = request.getParameter("id");
 		if (StringUtils.isBlank(buildingId)) {
 			map.put("errorCode", FmlConstants.ERROR_CODE_TYPE1);
 			return map;
 		}
-	map.put("success", houseTypeList);
-	//map.put("labels", houseTypeLabels);
-		
+		List<Map<String, Object>> houseTypeList = houseTypeService.mainHouseTypeList(new Long(buildingId));
+		if (StringUtils.isBlank(buildingId)) {
+			map.put("errorCode", FmlConstants.ERROR_CODE_TYPE1);
+			return map;
+		}
+		map.put("value", houseTypeList);
+		map.put("success", "true");
 		return map;
-}
 	}
+}

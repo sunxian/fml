@@ -35,15 +35,18 @@ public class BuildingController {
 	@RequestMapping("/homepage")
 	@ResponseBody
 	public Map<String, Object> homepage(HttpServletRequest request, HttpServletResponse resp) throws Exception {
-		Map<String, Object> map = new HashMap<String, Object>();	
+		Map<String, Object> map = new HashMap<String, Object>();
+		
 		List<Map<String, Object>> assetsByCode = assetsService.queryAssetsByCode(FmlConstants.AssetsCode.HOME_PAGE_TOPIMAGE);
 		map.put("topImages", assetsByCode);
 		Map<String, Object> headLines = headlinesService.getTopOneHeadLines();
 		map.put("categoryCode", headLines);
 		List<Map<String, Object>> hotBuilding = buildingService.getHotBuilding(1L);
 		map.put("hotBuilding", hotBuilding);
+		
 		return map;
 	}
+	
 	@RequestMapping("/buildingDetail")
 	@ResponseBody
 	public Map<String, Object> buildingDetail(HttpServletRequest request, HttpServletResponse resp) throws Exception {
@@ -76,6 +79,16 @@ public class BuildingController {
 		map.put("value", coopBuildingsMap);
 		return map;
 	}
+	
+	@RequestMapping("/buildingList")
+	@ResponseBody
+	public Map<String, Object> buildingList(HttpServletRequest request, HttpServletResponse resp) throws Exception {
+		Map<String, Object> map = new HashMap<String, Object>();
+
+
+		return map;
+	}
+	
 	
 	
 }

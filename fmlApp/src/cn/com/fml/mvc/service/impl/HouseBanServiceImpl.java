@@ -15,12 +15,13 @@ private HouseBanDao houseBanDao;
 	@Override
 	public List<Map<String, Object>> queryHouseBanList1(Long buildingId)
 			throws Exception {
-		// TODO Auto-generated method stub
+		
 		return houseBanDao.queryHouseBanList1(buildingId);
 	}
+
 	@Override
 	public List<String> queryOtherhouseType() throws Exception {
-		// TODO Auto-generated method stub
+		
 		return houseBanDao.queryOtherhouseType();
 	}
 

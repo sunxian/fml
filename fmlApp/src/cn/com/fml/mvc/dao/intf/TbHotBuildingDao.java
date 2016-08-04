@@ -17,6 +17,8 @@ public interface TbHotBuildingDao {
 	
 	List<String> getBuildingLabel(Long buildingId);
 	
+	List<String> getHouseTypeLabel(Long buildingId);
+	
 	List<Map<String, Object>> getCommissionByBuildingId(Map<String, Object> param);
 	
 	List<Map<String, Object>> getCoopBuildings(Long buildingId);
