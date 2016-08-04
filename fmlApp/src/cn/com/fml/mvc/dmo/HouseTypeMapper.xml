@@ -10,20 +10,30 @@
         <result property="desc" column="DESCP" />
         <result property="bedrooms" column="BEDROOMS" />
         <result property="square" column="SQUARE" />
+         <result property="totalPrice" column="TOTAL_PRICE" />
+        <result property="livingRooms" column="LIVING_ROOMS" />
+        <result property="square" column="SQUARE" />
+        <result property="toilets" column="TOILETS" />
+        <result property="isSalingflag" column="IS_SALING_FLAG" />
+        <result property="labelName" column="LABEL_NAME" /> 
     </resultMap>
+	
 	
 	<select id="queryHouseTypeList" resultMap="houseTypeInfo" >
 		SELECT ID,NAME,IMAGE_URL,DESCP,BEDROOMS,SQUARE FROM TB_HOUSE_TYPE
 		WHERE DELETE_FLAG='0' AND TB_BUILDING_ID=#{buildingId} 
 		ORDER BY UPDATE_TIME DESC
 	</select>
-	
+	<!--
+	主力户型接口-->
+	<select id="queryHouseTypeList1" resultMap="houseTypeInfo" >
+		SELECT a.IMAGE_URL,DESCP,a.LIVING_ROOMS,a.BEDROOMS,a.TOTAL_PRICE,a.TOILETS,a.SQUARE,a.IS_SALING_FLAG,b.LABEL_NAME FROM TB_HOUSE_TYPE
+		a join TB_HOUSE_TYPE_LABEL b on a.id=b. TB_HOUSE_TYPE_ID 
+		WHERE a.DELETE_FLAG='0' AND a.TB_BUILDING_ID=#{buildingId}
+		ORDER BY a.UPDATE_TIME DESC
+	</select>
+
 </mapper>
-
-
-
-
-
 
 
 

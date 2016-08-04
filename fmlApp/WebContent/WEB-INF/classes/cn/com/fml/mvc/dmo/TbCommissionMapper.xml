@@ -11,7 +11,7 @@
         <result property="desc" column="DESCP" />
     </resultMap>
 
-<select id="getCommissionById" resultMap="commissionInfo" parameterType="java.util.Map">
+<select id="getCommissionById" resultMap="commissionInfo">
 		SELECT amount,type,SETTLEMENT_NODE,DESCP from tb_commission where DELETE_FLAG='0' and id=#{id} 
 	</select>
 </mapper>
