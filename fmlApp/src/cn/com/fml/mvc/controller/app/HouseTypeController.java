@@ -33,11 +33,14 @@ public class HouseTypeController extends HouseTypeServiceImpl{
 		Map<String, Object> map = new HashMap<String, Object>();
 		String buildingId= request.getParameter("id");
 		List<Map<String, Object>> houseTypeList=houseTypeService.queryHouseTypeList1(new Long(buildingId));
+		//List<String> houseTypeLabels=houseTypeService.getHouseTypeLabel();
 		if (StringUtils.isBlank(buildingId)) {
 			map.put("errorCode", FmlConstants.ERROR_CODE_TYPE1);
 			return map;
 		}
-		map.put("success",houseTypeList);
+	map.put("success", houseTypeList);
+	//map.put("labels", houseTypeLabels);
+		
 		return map;
 }
 	}

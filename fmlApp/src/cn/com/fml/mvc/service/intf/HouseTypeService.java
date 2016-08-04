@@ -5,5 +5,6 @@ import java.util.Map;
 
 public interface HouseTypeService {
 	List<Map<String, Object>> queryHouseTypeList1(Long buildingId) throws Exception;
-
+	
+	
 }
