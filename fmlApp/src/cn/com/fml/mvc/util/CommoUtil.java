@@ -41,12 +41,23 @@ public class CommoUtil {
                 }  
   
             }  
-        } catch (Exception e) {  
-            System.out.println("transBean2Map Error " + e);  
+        } catch (Exception e) {
+            System.out.println("transBean2Map Error " + e);
         }  
   
         return map;  
   
     }  
+    
+    public static boolean checkIsNotNull(Object... obj) {
+    	boolean result = true;
+    	for (Object o : obj ) {
+    		if (o == null || String.valueOf(o).length() == 0) {
+    			result = false;
+    			break;
+    		}
+    	}
+    	return result;
+    }
 	
 }

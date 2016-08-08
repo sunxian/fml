@@ -34,6 +34,16 @@
 		<filter-name>encodingFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
+	
+	<filter>  
+        <filter-name>fmlfilter</filter-name>  
+        <filter-class>cn.com.fml.mvc.common.FmlFilter</filter-class>  
+    </filter>  
+    <filter-mapping>  
+        <filter-name>fmlfilter</filter-name>  
+        <url-pattern>/*</url-pattern>  
+    </filter-mapping>	
+	
 
 	<servlet>
 		<servlet-name>springMvc</servlet-name>

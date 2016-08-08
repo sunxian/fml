@@ -25,4 +25,5 @@ public interface TbHotBuildingDao {
 	
 	Map<String, Object> getBuildingRegion(Long buildingId);
 	
+	List<Map<String, Object>> getBuildingsList();
 }

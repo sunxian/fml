@@ -1,13 +1,3 @@
-/*
- * Copyright (C), 2002-2013, 苏宁易购电子商务有限公司
- * FileName: TokenHandler.java
- * Author:   13040440
- * Date:     2013-10-8 上午10:01:30
- * Description: //模块目的、功能描述      
- * History: //修改记录
- * <author>      <time>      <version>    <desc>
- * 修改人姓名             修改时间            版本号                  描述
- */
 package cn.com.fml.mvc.common;
 
 import java.util.HashMap;

@@ -111,5 +111,12 @@
 		MIN(BEDROOMS) AS MINBEDROOMS,MAX(BEDROOMS) AS MAXBEDROOMS FROM tb_house_type t 
 		where DELETE_FLAG='0' AND IS_SALING_FLAG='1' AND TB_BUILDING_ID=#{buildingId}
 	</select>
+	
+	<!-- 取得楼盘列表，暂时没有考虑查询条件。初步考虑再搞一个检索表，该表包含楼盘所有属性值。但是范围类不太好处理 -->
+	<select id="getBuildingsList" resultMap="coopBuildingInfo" >
+		SELECT b.ID,b.NAME,b.AVERAGE_PRICE,b.ADDRESS FROM tb_building b 
+		where b.DELETE_FLAG='0' 
+		ORDER BY b.UPDATE_TIME DESC
+	</select>	
 
 </mapper>

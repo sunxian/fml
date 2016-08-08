@@ -105,7 +105,7 @@ public class BuildingServiceImpl implements BuildingService{
 				List<Map<String,Object>> commissionInfo = getCommissionInfo(buildingId, roleId);
 				String commission = "";
 				if (!CollectionUtils.isEmpty(commissionInfo)) {
-					Object commObj= commissionInfo.get(0).get("amount");
+					Object commObj = commissionInfo.get(0).get("amount");
 					commission = commObj!= null ? commObj.toString() : "";
 				}
 				map.put("commission", commission);
@@ -119,6 +119,37 @@ public class BuildingServiceImpl implements BuildingService{
 		}
 		
 		return coopBuildings;
+	}
+	
+	@Override
+	public List<Map<String, Object>> getBuildingsList(Long roleId) throws Exception {
+		List<Map<String, Object>> buildingsList = tbHotBuildingDao.getBuildingsList();
+		if (!CollectionUtils.isEmpty(buildingsList)) {
+			for (Map<String, Object> map : buildingsList) {
+				Long buildingId = new Long(map.get("id").toString());
+				//获取楼盘列表缩略图
+				List<String> list = queryBuildIngImage(map.get("id"), FmlConstants.AssetsCode.LIST_PAGE_SNAPSHORT);
+				String imageUrl = "";
+				if (!CollectionUtils.isEmpty(list)) {
+					imageUrl = list.get(0);
+				}
+				map.put("imageUrl", imageUrl);
+				//获取楼盘佣金信息
+				List<Map<String,Object>> commissionInfo = getCommissionInfo(buildingId, roleId);
+				String commission = "";
+				if (!CollectionUtils.isEmpty(commissionInfo)) {
+					Object commObj = commissionInfo.get(0).get("amount");
+					commission = commObj!= null ? commObj.toString() : "";
+				}
+				map.put("amount", commission);
+				map.put("count", commissionInfo.size());
+				//房间区间，面积区间
+				Map<String, Object> region = tbHotBuildingDao.getBuildingRegion(buildingId);
+				map.putAll(region);
+			}
+		}
+		
+		return buildingsList;
 	}
 	
 	private List<String> queryBuildIngImage(Object buildingId, String typeCode) {

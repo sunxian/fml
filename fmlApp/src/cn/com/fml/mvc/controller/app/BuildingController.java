@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.com.fml.mvc.common.FmlConstants;
+import cn.com.fml.mvc.common.QueryParam;
 import cn.com.fml.mvc.service.intf.AssetsService;
 import cn.com.fml.mvc.service.intf.BuildingService;
 import cn.com.fml.mvc.service.intf.HeadlinesService;
+import cn.com.fml.mvc.util.CommoUtil;
 
 
 @Controller
@@ -84,8 +86,30 @@ public class BuildingController {
 	@ResponseBody
 	public Map<String, Object> buildingList(HttpServletRequest request, HttpServletResponse resp) throws Exception {
 		Map<String, Object> map = new HashMap<String, Object>();
-
-
+		// 暂时没有处理检索条件。比较麻烦。初步考虑再搞一个检索表，该表包含楼盘所有属性值。但是范围类不太好处理
+		String startIndex = request.getParameter("startIndex");
+		
+		QueryParam<Object> pager = new QueryParam<Object>();
+		
+		if (!CommoUtil.checkIsNotNull(startIndex)) {
+			map.put("errorCode", FmlConstants.ERROR_CODE_TYPE1);
+			return map;
+		}
+        int index = Integer.valueOf(startIndex);
+        int pageSize = 10;
+        String pageSizePar = request.getParameter("pageSize");
+        if (CommoUtil.checkIsNotNull(pageSizePar)) {
+        	pageSize = Integer.valueOf(pageSizePar);
+        }
+        int pageNumber = index/pageSize + 1;
+        
+		pager.setPageSize(pageSize);
+		pager.setPageNumber(pageNumber);
+		
+		//TODO
+		Long roleId = 1L;
+		List<Map<String, Object>> coopBuildingsMap = buildingService.getBuildingsList(roleId);
+		map.put("value", coopBuildingsMap);
 		return map;
 	}
 	

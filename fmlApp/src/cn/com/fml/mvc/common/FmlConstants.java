@@ -13,6 +13,12 @@ public class FmlConstants {
 	public static final String ERROR_CODE_TYPE2 = "01";
 	//其他错误
 	public static final String ERROR_CODE_TYPE3 = "02";
+	//本周
+	public static final String seeType1="1";
+	//本月
+	public static final String seeType2="2";
+	//本年
+	public static final String seeType3="3";
 	
 	/**
 	 * 资产类别

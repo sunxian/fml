@@ -10,4 +10,5 @@ public interface BuildingService {
 	
 	List<Map<String, Object>> coopBuildingsById(Long buildingId, Long roleId) throws Exception;
 	
+	List<Map<String, Object>> getBuildingsList(Long roleId) throws Exception;
 }
