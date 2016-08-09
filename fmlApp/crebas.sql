@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50713
 File Encoding         : 65001
 
-Date: 2016-08-08 17:39:47
+Date: 2016-08-09 17:23:28
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -250,20 +250,21 @@ CREATE TABLE `tb_customer_report` (
   `ID` bigint(20) NOT NULL AUTO_INCREMENT,
   `CREATE_TIME` datetime DEFAULT NULL,
   `UPDATE_TIME` datetime DEFAULT NULL,
-  `DELETE_FLAG` char(1) COLLATE utf8_bin DEFAULT NULL COMMENT '1:逻辑删除',
+  `DELETE_FLAG` char(1) DEFAULT NULL COMMENT '1:逻辑删除',
   `TB_BUILDING_ID` bigint(20) DEFAULT NULL COMMENT '报备楼盘ID',
-  `STATUS` varchar(2) COLLATE utf8_bin DEFAULT NULL COMMENT '跟进状态：默认1：已报备，2：已带看，3：已成交，4：无效客户',
+  `TB_CUSTOMER_ID` bigint(20) DEFAULT NULL COMMENT '客户ID',
+  `STATUS` varchar(2) DEFAULT NULL COMMENT '跟进状态：默认1：已报备，2：已带看，3：已成交，4：无效客户',
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='客户报备楼盘表';
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COMMENT='客户报备楼盘表';
 
 -- ----------------------------
 -- Records of tb_customer_report
 -- ----------------------------
-INSERT INTO `tb_customer_report` VALUES ('1', '2016-08-08 11:06:07', '2016-08-08 11:06:09', '0', '1', '2');
-INSERT INTO `tb_customer_report` VALUES ('2', '2016-08-06 11:06:55', '2016-08-08 11:07:06', '0', '1', '2');
-INSERT INTO `tb_customer_report` VALUES ('3', '2016-07-08 12:27:22', '2016-07-09 12:27:29', '0', '1', '2');
-INSERT INTO `tb_customer_report` VALUES ('4', '2016-08-08 14:43:34', '2016-08-08 14:43:40', '0', '1', '3');
-INSERT INTO `tb_customer_report` VALUES ('5', '2016-06-02 14:44:02', '2016-06-02 14:44:15', '0', '1', '3');
+INSERT INTO `tb_customer_report` VALUES ('1', '2016-08-08 11:06:07', '2016-08-08 11:06:09', '0', '1', '1', '2');
+INSERT INTO `tb_customer_report` VALUES ('2', '2016-08-06 11:06:55', '2016-08-08 11:07:06', '0', '1', '2', '2');
+INSERT INTO `tb_customer_report` VALUES ('3', '2016-07-08 12:27:22', '2016-07-09 12:27:29', '0', '1', '3', '2');
+INSERT INTO `tb_customer_report` VALUES ('4', '2016-08-08 14:43:34', '2016-08-08 14:43:40', '0', '1', '4', '3');
+INSERT INTO `tb_customer_report` VALUES ('5', '2016-06-02 14:44:02', '2016-06-02 14:44:15', '0', '1', '5', '3');
 
 -- ----------------------------
 -- Table structure for `tb_developers`

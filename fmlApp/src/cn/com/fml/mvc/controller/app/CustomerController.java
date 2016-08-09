@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import cn.com.fml.mvc.dao.intf.TbCustomerDao;
 import cn.com.fml.mvc.service.intf.CustomerService;
 import cn.com.fml.mvc.service.intf.UserService;
 
@@ -65,8 +66,25 @@ public class CustomerController {
 	@ResponseBody
 	public Map<String, Object> getCustomerDetail(HttpServletRequest request, HttpServletResponse resp) throws Exception {
 		Map<String, Object> map = new HashMap<String, Object>();
-      
+		String customerId=request.getParameter("customerId");
+		if (StringUtils.isBlank(customerId) ) {
+			map.put("errorCode", "01");
 		return map;
 	}
-	
+		List<String> area=customerService.queryAreas(new Long(customerId));
+		double minprice=customerService.queryminPrice(new Long(customerId));
+	double maxprice=customerService.querymaxPrice(new Long(customerId));
+		map.put("area", area);
+	map.put("minPrice", minprice);
+    map.put("maxPrice", maxprice);
+List<String> types=customerService.queryTypes(new Long(customerId));
+	List<String> houseTypes=customerService.queryHouseTypes(new Long(customerId));
+	map.put("types", types);
+	map.put("houseTypes", houseTypes);
+	List<Map<String, Object>> custumerdetaillist=customerService.queryCustomerDetail(new Long(customerId));
+	map.put("customerInfo", custumerdetaillist);
+	List<Map<String,Object>> reportList=customerService.queryReportList(new Long(customerId));
+	map.put("reportList", reportList);
+		return map;	
+}
 }

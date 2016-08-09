@@ -2,6 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.com.fml.mvc.dao.intf.TbCustomerDao">
+<resultMap id="custumer" type="java.util.Map">
+       
+        <result property="name" column="NAME" />
+        <result property="phoneNo" column="PNONE_NO" />
+        <result property="level" column="LEVEL" />
+    </resultMap>
 <!-- 累计带看次数 -->
 	<select id="queryTimesByMonth" resultType="Integer" parameterType="java.lang.Integer">
 		select count(id) from tb_customer_report 
@@ -22,4 +28,34 @@ WHERE `STATUS`='2' and DATE_FORMAT(UPDATE_TIME,'%Y%u')=DATE_FORMAT(SYSDATE(),'%Y
 select DATE_FORMAT(UPDATE_TIME,'%Y%m') date,count(id) as times from tb_customer_report 
 WHERE `STATUS`='3' GROUP BY DATE_FORMAT(UPDATE_TIME,'%Y%m') ;
 	</select>	
+	
+	
+	<!-- 客户详情 -->
+	<select id="queryCustomerDetail" resultType="Map" >
+select NAME,PNONE_NO,LEVEL from tb_customer where id=#{customerId};
+	</select>	
+	<!-- 意向最低价格 -->
+		<select id="queryminPrice" resultType="Double" >
+select  VALUE  from tb_customer_intention where type=2 and TB_CUSTOMER_ID=#{customerId};
+	</select>	
+	<!-- 意向最高价格 -->
+		<select id="querymaxPrice" resultType="Double"  >
+select  VALUE  from tb_customer_intention where type=3 and TB_CUSTOMER_ID=#{customerId};
+	</select>
+	<!-- 意向类型-->
+		<select id="queryTypes" resultType="java.lang.String" >
+select  VALUE as Types from tb_customer_intention where type=1 and TB_CUSTOMER_ID=#{customerId};
+	</select>
+	<!-- 意向区域-->
+		<select id="queryAreas" resultType="java.lang.String"   >
+select  VALUE as area from tb_customer_intention where type=4 and TB_CUSTOMER_ID=#{customerId};
+	</select>
+	<!-- 意向户型-->
+		<select id="queryHouseTypes" resultType="java.lang.String"  >
+select  VALUE as houseTypes from tb_customer_intention where type=5 and TB_CUSTOMER_ID=#{customerId};
+	</select>
+	<!-- 已报楼盘列表-->
+	<select id="queryReportList" resultType="Map">
+SELECT a.TB_BUILDING_ID,a.STATUS,b.NAME from tb_customer_report a join TB_BUILDING b on a.TB_BUILDING_ID=b.ID where a.TB_CUSTOMER_ID=#{customerId} ;
+	</select>
 </mapper>
