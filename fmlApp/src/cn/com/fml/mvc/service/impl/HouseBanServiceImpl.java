@@ -13,10 +13,10 @@ public class HouseBanServiceImpl implements HouseBanService {
 	@Autowired
 private HouseBanDao houseBanDao;
 	@Override
-	public List<Map<String, Object>> queryHouseBanList1(Long buildingId)
+	public List<Map<String, Object>> queryHouseBanInfoList(Long buildingId)
 			throws Exception {
 		
-		return houseBanDao.queryHouseBanList1(buildingId);
+		return houseBanDao.queryHouseBanInfoList(buildingId);
 	}
 
 	@Override

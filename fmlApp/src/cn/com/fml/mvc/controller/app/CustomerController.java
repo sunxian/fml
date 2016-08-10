@@ -61,30 +61,48 @@ public class CustomerController {
 		
 		return map;
 	}
+	//客户列表
+	@RequestMapping("/customerList")
+	@ResponseBody
+	public Map<String, Object> getcustomerList(HttpServletRequest request, HttpServletResponse resp) throws Exception {
+		Map<String, Object> map = new HashMap<String, Object>();
+		List<Map<String, Object>> customerList=customerService.queryCustomerList();
+		map.put("value",customerList);
+		
+		return map;
+	}
 	//客户详情
 	@RequestMapping("/customerDetail")
 	@ResponseBody
-	public Map<String, Object> getCustomerDetail(HttpServletRequest request, HttpServletResponse resp) throws Exception {
+	public Map<String, Object> getCustomerDetail(HttpServletRequest request,
+			HttpServletResponse resp) throws Exception {
 		Map<String, Object> map = new HashMap<String, Object>();
-		String customerId=request.getParameter("customerId");
-		if (StringUtils.isBlank(customerId) ) {
+		String customerId = request.getParameter("customerId");
+		if (StringUtils.isBlank(customerId)) {
 			map.put("errorCode", "01");
+			return map;
+		}
+		List<String> area = customerService.queryAreas(new Long(customerId));
+		double minprice = customerService.queryminPrice(new Long(customerId));
+		double maxprice = customerService.querymaxPrice(new Long(customerId));
+		map.put("area", area);
+		map.put("minPrice", minprice);
+		map.put("maxPrice", maxprice);
+		List<String> types = customerService.queryTypes(new Long(customerId));
+		List<String> houseTypes = customerService.queryHouseTypes(new Long(
+				customerId));
+		map.put("types", types);
+		map.put("houseTypes", houseTypes);
+		List<Map<String, Object>> custumerdetaillist = customerService
+				.queryCustomerDetail(new Long(customerId));
+		for(Map<String, Object>  custumerdetailMap:custumerdetaillist){
+			map.putAll(custumerdetailMap);
+		}
+		
+		List<Map<String, Object>> reportList = customerService
+				.queryReportList(new Long(customerId));
+		map.put("reportList", reportList);
+		map.putAll(map);
 		return map;
 	}
-		List<String> area=customerService.queryAreas(new Long(customerId));
-		double minprice=customerService.queryminPrice(new Long(customerId));
-	double maxprice=customerService.querymaxPrice(new Long(customerId));
-		map.put("area", area);
-	map.put("minPrice", minprice);
-    map.put("maxPrice", maxprice);
-List<String> types=customerService.queryTypes(new Long(customerId));
-	List<String> houseTypes=customerService.queryHouseTypes(new Long(customerId));
-	map.put("types", types);
-	map.put("houseTypes", houseTypes);
-	List<Map<String, Object>> custumerdetaillist=customerService.queryCustomerDetail(new Long(customerId));
-	map.put("customerInfo", custumerdetaillist);
-	List<Map<String,Object>> reportList=customerService.queryReportList(new Long(customerId));
-	map.put("reportList", reportList);
-		return map;	
-}
 }

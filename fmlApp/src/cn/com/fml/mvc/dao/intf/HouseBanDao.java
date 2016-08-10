@@ -6,6 +6,6 @@ import java.util.Map;
 public interface HouseBanDao {
 	
 	List<Map<String, Object>> queryHouseBanList(Long buildingId);
-	List<Map<String, Object>> queryHouseBanList1(Long buildingId);
+	List<Map<String, Object>> queryHouseBanInfoList(Long buildingId);
 	List<String> queryOtherhouseType();
 }

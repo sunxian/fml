@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50713
 File Encoding         : 65001
 
-Date: 2016-08-09 17:23:28
+Date: 2016-08-10 17:45:18
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -206,14 +206,16 @@ CREATE TABLE `tb_customer` (
   `LEVEL` varchar(2) DEFAULT NULL COMMENT '客户等级：ABCDE',
   `REMARK` varchar(256) DEFAULT NULL COMMENT '备注信息',
   `EFFECTIVE_FLAG` char(1) DEFAULT NULL COMMENT '是否有效客户标志：1：有效，0：无效',
+  `FIRST_LETTER` varchar(2) DEFAULT NULL COMMENT '客户姓名首字母',
   `TS_USER` bigint(20) DEFAULT NULL COMMENT '客户所属用户表',
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='客户表';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='客户表';
 
 -- ----------------------------
 -- Records of tb_customer
 -- ----------------------------
-INSERT INTO `tb_customer` VALUES ('1', '2016-08-02 10:40:31', '2016-08-02 10:40:20', '0', 'sun', '131131', '', '1', '无', '1', '1');
+INSERT INTO `tb_customer` VALUES ('1', '2016-08-02 10:40:31', '2016-08-02 10:40:20', '0', 'sun', '131131', '', '1', '无', '1', 's', '1');
+INSERT INTO `tb_customer` VALUES ('2', '2016-08-10 11:00:05', '2016-08-10 11:00:15', '0', 'tom', '131132', '', '1', 'wu', '1', 't', '1');
 
 -- ----------------------------
 -- Table structure for `tb_customer_intention`
@@ -373,12 +375,13 @@ CREATE TABLE `tb_house_ban` (
   `SALING_HOUSES` int(11) DEFAULT NULL COMMENT '在售房源数',
   `IS_SALING_FLAG` char(1) COLLATE utf8_bin DEFAULT NULL COMMENT '在售标识：1：在售，0：未售',
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='楼栋信息';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='楼栋信息';
 
 -- ----------------------------
 -- Records of tb_house_ban
 -- ----------------------------
 INSERT INTO `tb_house_ban` VALUES ('1', '2016-07-31 15:00:40', '2016-07-31 15:00:41', '0', '1', '9栋', 'http://1232323232.png', '2016-07-31 15:00:59', '2016-07-31 15:01:01', '2', '2楼4户', '18', '150', '1');
+INSERT INTO `tb_house_ban` VALUES ('2', '2016-08-10 16:47:44', '2016-08-10 16:47:47', '0', '1', '8栋', 'http://1232323232.png', '2016-08-10 16:48:19', '2016-08-10 16:48:24', '2', '2楼8户', '15', '100', '1');
 
 -- ----------------------------
 -- Table structure for `tb_house_type`
@@ -404,13 +407,14 @@ CREATE TABLE `tb_house_type` (
   `IS_MAIN_FLAG` char(1) COLLATE utf8_bin DEFAULT NULL COMMENT '是否主力户型：1：主力户型，0：非主力户型',
   `IS_SALING_FLAG` char(1) COLLATE utf8_bin DEFAULT NULL COMMENT '在售标识：1：在售，0：未售',
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='户型表，检索查此表';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='户型表，检索查此表';
 
 -- ----------------------------
 -- Records of tb_house_type
 -- ----------------------------
 INSERT INTO `tb_house_type` VALUES ('1', '2016-07-31 14:54:22', '2016-07-31 14:54:24', '0', '1', '1', '2居1厅1卫', '高层标准层B1', 'http://232323232.png', '1', '3', '1', '98.00', '18000.00', null, '1600000.00', '1', '1');
-INSERT INTO `tb_house_type` VALUES ('2', '2016-08-03 17:29:42', '2016-08-03 17:29:47', '0', '1', '1', '3居1厅2卫', '高层标准层B1', 'tp://232323432.png', '1', '3', '2', '120.00', '30000.00', null, '2000000.00', '0', '1');
+INSERT INTO `tb_house_type` VALUES ('2', '2016-08-03 17:29:42', '2016-08-03 17:29:47', '0', '1', '2', '3居1厅2卫', '高层标准层B1', 'tp://232323432.png', '1', '3', '2', '120.00', '30000.00', null, '2000000.00', '1', '1');
+INSERT INTO `tb_house_type` VALUES ('3', '2016-08-10 17:10:13', '2016-08-11 17:10:16', '0', '1', '2', '3居1厅', '高层标准层B', null, '1', '3', '0', '100.00', '20000.00', null, '150000.00', '0', '1');
 
 -- ----------------------------
 -- Table structure for `tb_house_type_label`
@@ -435,7 +439,7 @@ CREATE TABLE `tb_house_type_label` (
 INSERT INTO `tb_house_type_label` VALUES ('1', '2016-08-03 14:38:44', '2016-08-03 14:38:47', '0', '1', '1', '1', '可售10套', '1');
 INSERT INTO `tb_house_type_label` VALUES ('2', '2016-08-03 14:48:26', '2016-08-03 14:48:30', '0', '1', '1', '1', '南北通透', '1');
 INSERT INTO `tb_house_type_label` VALUES ('3', '2016-08-03 14:49:48', '2016-08-03 14:49:50', '0', '1', '1', '1', '户型方正', '1');
-INSERT INTO `tb_house_type_label` VALUES ('4', '2016-08-04 10:11:04', '2016-08-04 10:11:10', '0', '1', '1', '2', '可售20套', '1');
+INSERT INTO `tb_house_type_label` VALUES ('4', '2016-08-04 10:11:04', '2016-08-04 10:11:10', '0', '2', '2', '2', '可售20套', '1');
 
 -- ----------------------------
 -- Table structure for `tb_store`
@@ -624,46 +628,30 @@ CREATE TABLE `ts_user` (
   `ID` bigint(20) NOT NULL AUTO_INCREMENT,
   `CREATE_TIME` datetime DEFAULT NULL,
   `UPDATE_TIME` datetime DEFAULT NULL,
-  `DELETE_FLAG` char(1) COLLATE utf8_bin DEFAULT NULL COMMENT '1:逻辑删除',
-  `USER_CODE` varchar(32) COLLATE utf8_bin DEFAULT NULL,
-  `USER_NAME` varchar(128) COLLATE utf8_bin DEFAULT NULL,
-  `PASSWORD` varchar(64) COLLATE utf8_bin DEFAULT NULL,
-  `PHONE_NO` varchar(16) COLLATE utf8_bin DEFAULT NULL,
-  `NAME` varchar(32) COLLATE utf8_bin DEFAULT NULL COMMENT '姓名',
-  `ID_CARD` varchar(32) COLLATE utf8_bin DEFAULT NULL COMMENT '身份证号',
-  `ID_CARD_IMAGE_URL` varchar(128) COLLATE utf8_bin DEFAULT NULL COMMENT '身份证正面照片图片地址',
-  `BUSINESS_CARD_IMAGE_URL` varchar(128) COLLATE utf8_bin DEFAULT NULL COMMENT '名片照片地址，置业顾问使用',
+  `DELETE_FLAG` char(1) DEFAULT NULL COMMENT '1:逻辑删除',
+  `USER_CODE` varchar(32) DEFAULT NULL,
+  `USER_NAME` varchar(128) DEFAULT NULL,
+  `PASSWORD` varchar(64) DEFAULT NULL,
+  `PHONE_NO` varchar(16) DEFAULT NULL,
+  `NAME` varchar(32) DEFAULT NULL COMMENT '姓名',
+  `ID_CARD` varchar(32) DEFAULT NULL COMMENT '身份证号',
+  `ID_CARD_IMAGE_URL` varchar(128) DEFAULT NULL COMMENT '身份证正面照片图片地址',
+  `BUSINESS_CARD_IMAGE_URL` varchar(128) DEFAULT NULL COMMENT '名片照片地址，置业顾问使用',
   `BUSINESS_CITY_ID` bigint(20) DEFAULT NULL COMMENT '业务城市ID',
-  `BUSINESS_CITY_NAME` varchar(64) COLLATE utf8_bin DEFAULT NULL,
+  `BUSINESS_CITY_NAME` varchar(64) DEFAULT NULL,
   `TB_STORE_ID` bigint(20) DEFAULT NULL COMMENT '所属经济公司，经济人使用',
-  `AUTHENTICATION` char(1) COLLATE utf8_bin DEFAULT NULL COMMENT '是否已认证：0：未认证，1：已认证',
-  `LEVEL` varchar(2) COLLATE utf8_bin DEFAULT NULL COMMENT '用户级别：1：铁牌，2：铜牌，3：银牌，4：金牌',
-  `ID_CARD_IMAGE_URL2` varchar(128) COLLATE utf8_bin DEFAULT NULL COMMENT '头像图片地址',
-  `SEX` char(1) COLLATE utf8_bin DEFAULT NULL COMMENT '性别 1:男 2:女',
+  `AUTHENTICATION` char(1) DEFAULT NULL COMMENT '是否已认证：0：未认证，1：已认证',
+  `LEVEL` varchar(2) DEFAULT NULL COMMENT '用户级别：1：铁牌，2：铜牌，3：银牌，4：金牌',
+  `ID_CARD_IMAGE_URL2` varchar(128) DEFAULT NULL COMMENT '头像图片地址',
+  `SEX` char(1) DEFAULT NULL COMMENT '性别 1:男 2:女',
   `WORKING_SENIORITY` int(11) DEFAULT NULL COMMENT '从业年限',
-  `DECLARATION` varchar(128) COLLATE utf8_bin DEFAULT NULL COMMENT '服务宣言',
+  `DECLARATION` varchar(128) DEFAULT NULL COMMENT '服务宣言',
+  `TS_ROLE_ID` bigint(20) DEFAULT NULL COMMENT '角色id',
+  `ROLE_CODE` varchar(16) DEFAULT NULL COMMENT '角色编码',
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='用户表';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='用户表';
 
 -- ----------------------------
 -- Records of ts_user
 -- ----------------------------
-INSERT INTO `ts_user` VALUES ('1', '2016-07-28 21:00:14', '2016-07-28 21:00:16', '0', '1', '2', '123456', '15909099900', 'bb', 'dfdfd', 'fdfddf', 'dfdfd', '1212', 'dfdfdf', '12', null, null, null, null, null, null);
-
--- ----------------------------
--- Table structure for `ts_user_role`
--- ----------------------------
-DROP TABLE IF EXISTS `ts_user_role`;
-CREATE TABLE `ts_user_role` (
-  `ID` bigint(20) NOT NULL AUTO_INCREMENT,
-  `CREATE_TIME` datetime DEFAULT NULL,
-  `UPDATE_TIME` datetime DEFAULT NULL,
-  `DELETE_FLAG` char(1) COLLATE utf8_bin DEFAULT NULL,
-  `TS_USER_ID` bigint(20) DEFAULT NULL COMMENT '用户ID',
-  `TS_ROLE_ID` bigint(20) DEFAULT NULL COMMENT '角色ID',
-  PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='用户角色关联表';
-
--- ----------------------------
--- Records of ts_user_role
--- ----------------------------
+INSERT INTO `ts_user` VALUES ('1', '2016-07-28 21:00:14', '2016-07-28 21:00:16', '0', '1', '2', '123456', '15909099900', 'bb', 'dfdfd', 'fdfddf', 'dfdfd', '1212', 'dfdfdf', '12', null, null, null, null, null, null, '1', '1');

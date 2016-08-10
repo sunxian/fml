@@ -3,6 +3,7 @@ package cn.com.fml.mvc.service.impl;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,9 +33,10 @@ private TbCustomerDao tbCustomerDao;
 	@Override
 	public List<Map<String, Object>> queryReports()throws Exception {
 		// TODO Auto-generated method stub
+		
 		return tbCustomerDao.queryReports();
 	}
-
+//客户详情
 	@Override
 	public double queryminPrice(Long customerId) throws Exception {
 		// TODO Auto-generated method stub
@@ -77,6 +79,20 @@ private TbCustomerDao tbCustomerDao;
 			throws Exception {
 		// TODO Auto-generated method stub
 		return tbCustomerDao.queryReportList(customerId);
+	}
+	
+//客户列表
+	@Override
+	public List<Map<String, Object>> queryCustomerList() throws Exception {
+		// TODO Auto-generated method stub
+		List<Map<String, Object>> customerList=tbCustomerDao.queryCustomerList();
+//		if (!CollectionUtils.isEmpty(customerList)){
+//		for(Map<String, Object> map:customerList){
+//			//map.get("name");
+
+//		}
+//		}
+		return customerList;
 	}
 
 	

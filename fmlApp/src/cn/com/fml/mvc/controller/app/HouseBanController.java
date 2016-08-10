@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,11 +29,19 @@ public class HouseBanController {
 	public Map<String, Object> getHouseBanInfo(HttpServletRequest request, HttpServletResponse resp) throws Exception {
 		Map<String, Object> map = new HashMap<String, Object>();
 		String buildingId=request.getParameter("id");
-		List<Map<String, Object>> houseBanInfo = houseBanService.queryHouseBanList1(new Long(buildingId));
-		map.put("success", houseBanInfo);
-		List<String> otherHouseType=houseBanService.queryOtherhouseType();	
-		map.put("otherHouseType",otherHouseType);
-		map.get("success");
+	
+		
+		
+		List<Map<String, Object>> houseBanInfoList = houseBanService.queryHouseBanInfoList(new Long(buildingId));
+		map.put("success", houseBanInfoList);
+		if (!CollectionUtils.isEmpty(houseBanInfoList)){
+			for(Map<String, Object> houseBanInfo :houseBanInfoList){
+				List<String> otherHouseType=houseBanService.queryOtherhouseType();
+				houseBanInfo.put("otherHouseType",otherHouseType);
+			}
+		}
+		
+		
 		return map;
 	}
 
