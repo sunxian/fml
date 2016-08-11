@@ -17,8 +17,8 @@ import cn.com.fml.mvc.service.intf.TbCommissonService;
  */
 @Controller
 @RequestMapping("/app")
-
 public class CommissionController {
+	
 	@Autowired
 	private TbCommissonService commissonService;
 	@RequestMapping("/commission")
@@ -27,9 +27,7 @@ public class CommissionController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		String id=request.getParameter("id");
 		List<Map<String, Object>> commissionlist = commissonService.getCommissionById(new Long(id));
-		
 		map.put("success", commissionlist);
-		map.get("success");
 		map.put("coopStarttime", "8月1号");
 		map.put("coopEndtime", "10月1号");
 		map.put("purchaseEndtime", "2016.10.1");
@@ -37,5 +35,17 @@ public class CommissionController {
 		map.put("rule", "30天保护期");
 		return map;
 	}
-
+	//我的佣金
+	@RequestMapping("/commissionList")
+	@ResponseBody
+	public Map<String, Object> getCommissionList(HttpServletRequest request, HttpServletResponse resp) throws Exception {
+		Map<String, Object> map = new HashMap<String, Object>();
+		String status=request.getParameter("status");
+		Map<String, Object> myCommissionMap=commissonService.getMyCommission(status);
+		map.putAll(myCommissionMap);
+		return map;
+		
+		
+		
+}
 }

@@ -14,4 +14,20 @@
 <select id="getCommissionById" resultMap="commissionInfo">
 		SELECT amount,type,SETTLEMENT_NODE,DESCP from tb_commission where DELETE_FLAG='0' and id=#{id} 
 	</select>
+	<!-- 用户佣金 -->
+	<select id="getAmount" resultType="Double" parameterType="java.lang.String">
+		select SUM(amount) from tb_user_commission
+		<where>
+			<if test="status!= null">
+				status =#{status}
+			</if>
+		</where>
+	</select>
+	<select id="queryCommissionList" resultType="Map"  >
+
+		select CUSTOMER_NAME ,CUSTOMER_PHONE,BUILDING_NAME,TRADE_TIME,AMOUNT,STATUS from tb_user_commission where TS_USER_ID=1;
+		
+	</select>
+	
+	
 </mapper>
