@@ -10,7 +10,7 @@
         <result property="desc" column="DESCP" />
         <result property="label" column="FLAG" />
     </resultMap>
-    
+      
 	<resultMap id="buildingDetail" type="java.util.Map">
         <id property="id" column="ID" />
         <result property="name" column="NAME" />
@@ -29,6 +29,7 @@
         <result property="developersName" column="DEVELOPERS_NAME" />
         <result property="preSalePermit" column="PRE_SALE_PERMIT" />
         <result property="propertyCompany" column="PROPERTY_COMPANY" />
+        <result property="propertyFee" column="PROPERTY_FEE" />
     </resultMap>
 
 	<resultMap id="commissionInfo" type="java.util.Map">
@@ -44,6 +45,15 @@
         <result property="address" column="ADDRESS" />
     </resultMap>
     
+	<resultMap id="ListBuildingInfo" type="java.util.Map">
+        <id property="id" column="ID" />
+        <result property="name" column="NAME" />
+        <result property="averagePrice" column="AVERAGE_PRICE" />
+        <result property="address" column="ADDRESS" />
+        <result property="long" column="LONGITUDE" />
+        <result property="lati" column="LATITUDE" />
+    </resultMap>
+    
 	<resultMap id="buildingRegion" type="java.util.Map">
         <result property="minSquare" column="MINSQUARE" />
         <result property="maxSquare" column="MAXSQUARE" />
@@ -51,6 +61,35 @@
         <result property="maxRooms" column="MAXBEDROOMS" />
     </resultMap>
     
+	<resultMap id="projectList" type="java.util.Map">
+        <result property="id" column="id" />
+        <result property="name" column="name" />
+        <result property="address" column="address" />
+        <result property="averagePrice" column="average_price" />
+        <result property="leadTime" column="LEAD_TIME"  />
+        <result property="propertyType" column="PROPERTY_TYPE" />
+        <result property="buildingType" column="BUILDING_TYPE"  />
+        <result property="renovationStatus" column="RENOVATION_STATUS"  />
+        <result property="households" column="HOUSEHOLDS"  />
+        <result property="volumeRatio" column="VOLUME_RATIO"  />
+        <result property="greeningRate" column="GREENING_RATE"  />
+        <result property="developersId" column="DEVELOPERS_ID"  />
+        <result property="developersName" column="DEVELOPERS_NAME"  />
+         <result property="preSalePermit" column="PRE_SALE_PERMIT" />
+        <result property="propertyCompany" column="PROPERTY_COMPANY" />
+          <result property="developersDesc" column="DEVELOPERS_DESC" />
+          <result property="areaId" column="AREAID" />
+          <result property="areaLevel" column="AREA_LEVEL" />
+          <result property="longitude" column="LONGITUDE" />
+          <result property="latitude" column="LATITUDE" />
+          <result property="zoom" column="ZOOM" />
+           <result property="periodOfRights" column="PERIOD_OF_RIGHTS" />
+          <result property="parkingSpace" column="PARKING_SPACE" />
+          <result property="descp" column="DESCP" />
+          <result property="propertyFee" column="PROPERTY_FEE" />
+          
+    </resultMap>
+
 	<!-- 取得用户关注楼盘列表 -->
 	<select id="getCollectionBuilding" resultMap="hotBuildingInfo" >
 		SELECT b.ID,b.NAME,b.AVERAGE_PRICE,b.DESCP,b.FLAG FROM TB_BUILDING_COLLECTION c 
@@ -112,11 +151,137 @@
 		where DELETE_FLAG='0' AND IS_SALING_FLAG='1' AND TB_BUILDING_ID=#{buildingId}
 	</select>
 	
-	<!-- 取得楼盘列表，暂时没有考虑查询条件。初步考虑再搞一个检索表，该表包含楼盘所有属性值。但是范围类不太好处理 -->
-	<select id="getBuildingsList" resultMap="coopBuildingInfo" >
-		SELECT b.ID,b.NAME,b.AVERAGE_PRICE,b.ADDRESS FROM tb_building b 
-		where b.DELETE_FLAG='0' 
+	<!-- 取得楼盘列表 -->
+	<select id="getBuildingsList" resultMap="ListBuildingInfo" parameterType="java.util.Map">
+		SELECT b.ID,b.NAME,b.AVERAGE_PRICE,b.ADDRESS,b.LONGITUDE,b.LATITUDE FROM tb_building b WHERE b.DELETE_FLAG='0' 
+			<if test="noCondition == null">
+			AND b.ID IN 
+			(
+				SELECT TB_BUILDING_ID FROM tb_house_type 
+				<where>
+					<if test="minPrice != null and minPrice != 0">and TOTAL_PRICE &lt; #{minPrice} </if>
+					<if test="maxPrice != null and maxPrice != 0">and TOTAL_PRICE &gt; #{maxPrice} </if>
+					<if test="minSquare != null and minSquare != 0">and SQUARE &lt; #{minSquare} </if>
+					<if test="maxSquare != null and maxSquare != 0">and SQUARE &gt; #{maxSquare} </if>
+					<if test="houseType != null and houseType!=0">and BEDROOMS=#{houseType} </if>
+					<if test="houseType==0">and BEDROOMS &gt; #{houseType} </if>
+				</where>
+				<if test="likes != null">
+					UNION
+					(SELECT TB_BUILDING_ID FROM tb_building_label 
+						where LABEL_NAME IN 
+						<foreach collection="likes" item="label" open="(" close=")" separator=",">
+						 #{label}
+						</foreach>
+					)
+					UNION
+					(SELECT TB_BUILDING_ID FROM tb_house_type_label 
+						WHERE LABEL_NAME IN 
+						<foreach collection="likes" item="label" open="(" close=")" separator=",">
+						 #{label}
+						</foreach>
+					)
+				</if>
+			) 
+			<if test="hates != null">
+				AND b.ID NOT IN 
+				(
+					(SELECT TB_BUILDING_ID FROM tb_building_label 
+						where LABEL_NAME IN 
+						<foreach collection="hates" item="label" open="(" close=")" separator=",">
+						 #{label}
+						</foreach>
+					)
+					UNION
+					(SELECT TB_BUILDING_ID FROM tb_house_type_label 
+						WHERE LABEL_NAME IN 
+						<foreach collection="hates" item="label" open="(" close=")" separator=",">
+						 #{label}
+						</foreach>
+					)
+				)
+			</if>
+			
+			<if test="areaId != null">
+			AND
+			(
+				AREAID IN 
+				(
+					SELECT ID FROM ts_area WHERE POSITION LIKE '%${areaId}%'
+				) OR AREAID = #{areaId}
+			)
+			</if>
+			<if test="minLng != null">
+			AND AREAID IN 
+			(
+				SELECT id FROM ts_area
+				WHERE (lng BETWEEN #{minLng} AND #{maxLng}) AND (lat BETWEEN #{minLat} AND #{maxLat})
+			)
+			</if>
+		</if>
 		ORDER BY b.UPDATE_TIME DESC
+		LIMIT #{startIndex},#{pageSize}
 	</select>	
+	
+	<!-- 取得项目列表 -->
+	<select id="getProjectListCount" resultType="Long" parameterType="java.util.Map">
+		SELECT count(*) from tb_building 
+		where DELETE_FLAG='0' 
+		<if test="name != null">and name LIKE '%${name}%'</if>
+		<if test="id != null">and id = #{id}</if>
+	</select>
 
+	<!-- 取得项目列表 -->
+	<select id="getProjectList" resultMap="projectList" parameterType="java.util.Map">
+		SELECT t.id,t.name,t.address,t.average_price,t.type,t.LEAD_TIME,t.PROPERTY_TYPE,t.BUILDING_TYPE,
+t.RENOVATION_STATUS,
+		t.HOUSEHOLDS,t.VOLUME_RATIO,t.GREENING_RATE,t.PARKING_SPACE,t.PERIOD_OF_RIGHTS,t.DEVELOPERS_ID,
+t.DEVELOPERS_NAME,
+t.PRE_SALE_PERMIT
+		,t.PROPERTY_FEE,t.PROPERTY_COMPANY,t.DEVELOPERS_DESC,t.DESCP,t.AREAID,t.AREA_LEVEL,t.LONGITUDE,t.LATITUDE
+		,t.ZOOM from tb_building t 
+		where DELETE_FLAG='0' 
+		<if test="name != null">and name LIKE '%${name}%'</if>
+		<if test="id != null">and id = #{id}</if>
+		LIMIT #{startIndex},#{pageSize}
+	</select>
+	<!-- 添加楼盘 -->
+	<insert id="addBuilding" parameterType="cn.com.fml.mvc.dmo.TbBuilding">
+	insert into tb_building(DELETE_FLAG,name,address,average_price,type,LEAD_TIME,PROPERTY_TYPE,BUILDING_TYPE,
+RENOVATION_STATUS,HOUSEHOLDS,VOLUME_RATIO,GREENING_RATE,PARKING_SPACE,PERIOD_OF_RIGHTS,
+DEVELOPERS_NAME,PRE_SALE_PERMIT,
+PROPERTY_FEE,PROPERTY_COMPANY,DEVELOPERS_DESC,DESCP,AREAID,AREA_LEVEL,LONGITUDE,LATITUDE,ZOOM)values('0',#{name},
+#{address},#{averagePrice},#{type},#{leadTime},#{propertyType}, #{buildingType}, #{renovationStatus},#{households},#{volumeRatio},
+#{greeningRate},#{parkingSpace},#{periodOfRights},
+#{developersName},#{preSalePermit},#{propertyFee},#{propertyCompany},#{developersDesc},#{descp},#{areaId},#{areaLevel},
+#{longitude},#{latitude},#{zoom})
+	</insert>
+	<!-- 修改楼盘 -->
+	<update id="updateBuilding" parameterType="cn.com.fml.mvc.dmo.TbBuilding">
+	update tb_building set name=#{name},type=#{type},average_price=#{averagePrice},address=#{address},LEAD_TIME=#{leadTime},
+PROPERTY_TYPE=#{propertyType},BUILDING_TYPE=#{buildingType},RENOVATION_STATUS=#{renovationStatus},HOUSEHOLDS=#{households},
+GREENING_RATE=#{greeningRate},VOLUME_RATIO=#{volumeRatio},PARKING_SPACE=#{parkingSpace},PERIOD_OF_RIGHTS=#{periodOfRights},DEVELOPERS_NAME=#{developersName},
+DEVELOPERS_DESC=#{developersDesc},PROPERTY_FEE=#{propertyFee},
+PROPERTY_COMPANY=#{propertyCompany},DESCP=#{descp},PRE_SALE_PERMIT=#{preSalePermit},AREAID=#{areaId},
+AREA_LEVEL=#{areaLevel},LONGITUDE=#{longitude},LATITUDE=#{latitude},ZOOM=#{zoom}
+	where id=#{id}
+	</update>
+	<!-- 删除楼盘 -->
+	<update id="deleteBuilding" parameterType="cn.com.fml.mvc.dmo.TbBuilding">
+	update tb_building set DELETE_FLAG='1' where id=#{buildingId}
+	</update>
+	<!-- 搜索需要修改的楼盘 -->
+	<select id="selectBuildingToUpdate" resultType="tbBuilding" parameterType="java.lang.String">
+	SELECT id,name,address,average_price,type,LEAD_TIME,PROPERTY_TYPE,BUILDING_TYPE,
+RENOVATION_STATUS,
+		HOUSEHOLDS,VOLUME_RATIO,GREENING_RATE,PARKING_SPACE,PERIOD_OF_RIGHTS,
+DEVELOPERS_NAME,
+PRE_SALE_PERMIT,PROPERTY_FEE,PROPERTY_COMPANY,DEVELOPERS_DESC,DESCP,AREAID,AREA_LEVEL,LONGITUDE,LATITUDE
+		,ZOOM from tb_building  
+		where id=#{id}
+	</select>
+	
+	
+	
+	
 </mapper>

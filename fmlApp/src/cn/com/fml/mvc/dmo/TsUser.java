@@ -54,6 +54,10 @@ public class TsUser extends BaseDmo implements Serializable {
 	private String workingSeniority;
 	
 	private String declaration;
+	
+	private String roleCode;
+	
+	private long tsRoleId;
 
 	public String getUserCode() {
 		return userCode;
@@ -190,6 +194,22 @@ public class TsUser extends BaseDmo implements Serializable {
 	public void setDeclaration(String declaration) {
 		this.declaration = declaration;
 	}
-	
+
+    public String getRoleCode() {
+        return roleCode;
+    }
+
+    public void setRoleCode(String roleCode) {
+        this.roleCode = roleCode;
+    }
+
+    public long getTsRoleId() {
+        return tsRoleId;
+    }
+
+    public void setTsRoleId(long tsRoleId) {
+        this.tsRoleId = tsRoleId;
+    }
+
 	
 }

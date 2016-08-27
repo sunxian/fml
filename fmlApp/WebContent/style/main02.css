@@ -1,0 +1,7 @@
+.search-bar{
+    margin: 10px 0;
+    padding-left: 4px;
+}
+.table{
+    width:1080px;overflow-x: scroll;
+}

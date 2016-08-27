@@ -126,6 +126,11 @@
     	<property name="mapperInterface" value="cn.com.fml.mvc.dao.intf.TbCommissionDao"/>
     	<property name="sqlSessionFactory" ref="sqlSessionFactory" />  
 	</bean>
+	<bean id="mainDataDao" class="org.mybatis.spring.mapper.MapperFactoryBean">  
+    	<property name="mapperInterface" value="cn.com.fml.mvc.dao.intf.MainDataDao"/>
+    	<property name="sqlSessionFactory" ref="sqlSessionFactory" />  
+	</bean>
+     
      <bean id="TbCustomerDao" class="org.mybatis.spring.mapper.MapperFactoryBean">  
     	<property name="mapperInterface" value="cn.com.fml.mvc.dao.intf.TbCustomerDao"/>
     	<property name="sqlSessionFactory" ref="sqlSessionFactory" />  

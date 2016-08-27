@@ -15,30 +15,68 @@
 
 	<resultMap id="mainHouseTypeInfo" type="java.util.Map">
 		<id property="id" column="ID" />
+		
+        <result property="rooms" column="BEDROOMS" />
+        <result property="livingRooms" column="LIVING_ROOMS" />
+        <result property="toilets" column="TOILETS" />
+        <result property="square" column="SQUARE" />
+        <result property="isSalingFlag" column="IS_SALING_FLAG" />
+        <result property="desc" column="DESCP" />
+     
+		<result property="totalPrice" column="TOTAL_PRICE" />
+	</resultMap>
+	<resultMap id="HouseTypeManagerList" type="java.util.Map">
+		<id property="id" column="ID" />
+		<result property="houseBanName" column="HOUSE_BAN_NAME" />
+        <result property="buildingName" column="BUILDING_NAME" />
+		<result property="name" column="NAME" />
+        <result property="imageUrl" column="IMAGE_URL" />
 		<result property="name" column="NAME" />
         <result property="imageUrl" column="IMAGE_URL" />
         <result property="rooms" column="BEDROOMS" />
         <result property="livingRooms" column="LIVING_ROOMS" />
         <result property="toilets" column="TOILETS" />
         <result property="square" column="SQUARE" />
-        <result property="isSalingflag" column="IS_SALING_FLAG" />
+        <result property="isSalingFlag" column="IS_SALING_FLAG" />
         <result property="desc" column="DESCP" />
+         <result property="unitPrice" column="UNIT_PRICE" />
+         <result property=" isMainFlag" column="IS_MAIN_FLAG" />
 		<result property="totalPrice" column="TOTAL_PRICE" />
 	</resultMap>
-	
 	<select id="queryHouseTypeList" resultMap="houseTypeInfo" >
 		SELECT ID,NAME,IMAGE_URL,DESCP,BEDROOMS,SQUARE FROM TB_HOUSE_TYPE
 		WHERE DELETE_FLAG='0' AND TB_BUILDING_ID=#{buildingId} 
 		ORDER BY UPDATE_TIME DESC
 	</select>
 	
-	<!--主力户型接口-->
+	<!--主力户型接口-->  
 	<select id="mainHouseTypeList" resultMap="mainHouseTypeInfo" >
 		SELECT a.ID,a.NAME,a.IMAGE_URL,DESCP,a.LIVING_ROOMS,a.BEDROOMS,a.TOTAL_PRICE,a.TOILETS,a.SQUARE,a.IS_SALING_FLAG FROM TB_HOUSE_TYPE
 		a WHERE a.DELETE_FLAG='0' AND a.TB_BUILDING_ID=#{buildingId}
 		ORDER BY a.UPDATE_TIME DESC
 	</select>
+	<!-- 取得户型管理列表 -->
+<select id="getHouseTypeManagerList" resultMap="HouseTypeManagerList" parameterType="java.util.Map">
+		SELECT b.name as BUILDING_NAME ,c.name as HOUSE_BAN_NAME,a.ID,a.NAME,a.IMAGE_URL,a.DESCP,LIVING_ROOMS,a.BEDROOMS,a.UNIT_PRICE,a.TOTAL_PRICE,a.TOILETS,a.SQUARE,a.IS_SALING_FLAG FROM TB_HOUSE_TYPE
+		a join tb_building b on a.TB_BUILDING_ID= b.id left join tb_house_ban c on a.TB_HOUSE_BAN_ID=c.id
+		 WHERE a.DELETE_FLAG='0' 
+		
+			<if test="name != null">and name LIKE '%${name}%'</if>
+		<if test="id != null">and id = #{id}</if>
+		LIMIT #{startIndex},#{pageSize}
+	</select>
+	<!-- 添加户型 -->
+	<select id="addHouseType" resultMap="mainHouseTypeInfo" parameterType="java.util.Map">
 
+			<if test="name != null">and name LIKE '%${name}%'</if>
+		<if test="id != null">and id = #{id}</if>
+		LIMIT #{startIndex},#{pageSize}
+	</select>
+	<!-- 取得户型管理列表数目 -->
+	<select id="getHouseTypeManagerListCount" resultType="Long" parameterType="java.util.Map" >
+		SELECT count(*) from TB_HOUSE_TYPE
+		where DELETE_FLAG='0' 
+	</select>
 </mapper>
 
 

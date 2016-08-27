@@ -1,0 +1,23 @@
+<div class="header_styel1">
+  <div class="inner">
+    <div class="tools">
+      <div class="actions"> <span class="setting_btn">系统管理
+        <ul>
+          <li><a href="../user_list.html">用户管理</a></li>
+          <li><a href="../role_list.html">角色权限管理</a></li>
+          <li><a href="../company_list.html">公司管理</a></li>
+          <li><a href="../brand_list.html">品牌管理</a></li>
+          <li><a href="../model_list.html">车型管理</a></li>
+          <li><a href="../person_list.html">评价人员管理</a></li>
+          <li><a href="../dict_list.html">数据字典</a></li>
+          <li><a href="../system_setting_list.html">设备管理</a></li>
+          <li><a href="../qa_list.html">题库管理</a></li>
+          <li><a href="../data_list.html">数据管理</a></li>
+          <li><a href="../sysconfig.html">系统配置</a></li>
+        </ul>
+        </span> <a href="../login.html" class="logout">退出</a>
+        <div class="clear"></div>
+      </div>
+      <span class="user_info">欢迎您，李小萌</span> </div>
+    <a href="../project_list.html" class="logo">FBS</a> </div>
+</div>

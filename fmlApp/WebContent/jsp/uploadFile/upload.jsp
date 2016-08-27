@@ -3,7 +3,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<script type="text/javascript" src="../js/jquery-1.7.1.js"></script>
+<script type="text/javascript" src="../js/common/jquery-1.7.1.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript">
@@ -35,7 +35,7 @@
 <body>
 
 	 <h1>springMVC字节流输入上传文件</h1> 
-    <form name="userForm1" action="${base}/fileOperate/upload" enctype="multipart/form-data" method="post">
+    <form name="userForm1" action="${applicationScope.base}/fileOperate/upload" enctype="multipart/form-data" method="post">
 		<div id="newUpload1">
 			<input type="file" name="file">
 		</div>

@@ -1,0 +1,237 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link href="../style/main.css" rel="stylesheet" type="text/css" />
+    <link href="../style/main02.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="../js/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="../js/bootstrap.min.js"></script>
+    <title>房麦乐后台管理系统</title>
+</head>
+<body><!-- #BeginLibraryItem "/html/library/header1.lbi" --><div class="header_styel1">
+    <div class="inner">
+        <div class="tools">
+            <div class="actions"> <span class="setting_btn">系统管理
+        <ul>
+          <li><a href="user_list.html">用户管理</a></li>
+          <li><a href="role_list.html">角色权限管理</a></li>
+          <li><a href="company_list.html">公司管理</a></li>
+          <li><a href="brand_list.html">品牌管理</a></li>
+          <li><a href="model_list.html">车型管理</a></li>
+          <li><a href="person_list.html">评价人员管理</a></li>
+          <li><a href="dict_list.html">数据字典</a></li>
+          <li><a href="system_setting_list.html">设备管理</a></li>
+          <li><a href="qa_list.html">题库管理</a></li>
+          <li><a href="data_list.html">数据管理</a></li>
+          <li><a href="sysconfig.html">系统配置</a></li>
+        </ul>
+        </span> <a href="login.html" class="logout">退出</a>
+                <div class="clear"></div>
+            </div>
+            <span class="user_info">欢迎您，李小萌</span> </div>
+        <a href="project_list.html" class="logo">FBS</a> </div>
+</div><!-- #EndLibraryItem --><div class="page_path"> <a href="#" class="backtoindex"></a> <span>用户管理</span><i>&gt;</i><span>经纪人用户管理</span></div>
+<div class="page_inner">
+    <div class="left_menu">
+        <ul>
+            <li><a href="user_list.html">用户管理</a></li>
+            <li><a href="role_list.html">角色权限管理</a></li>
+            <li><a href="company_list.html">公司管理</a></li>
+            <li><a href="brand_list.html">品牌管理</a></li>
+            <li class="cur"><a href="#">车型管理</a></li>
+            <li><a href="person_list.html">评价人员管理</a></li>
+            <li><a href="dict_list.html">数据字典</a></li>
+            <li><a href="system_setting_list.html">设备管理</a></li>
+            <li><a href="qa_list.html">题库管理</a></li>
+            <li><a href="data_list.html">数据管理</a></li>
+            <li><a href="sysconfig.html">系统配置</a></li>
+        </ul>
+    </div>
+    <div class="right_main">
+        <div class="common_header">
+            <h3>经纪人用户管理</h3>
+        </div>
+        <div class="search-bar">
+            <form action="">
+                <label>用户查询</label>
+                <input class="common_input_text" type="text"/>
+                <label>机构查询</label>
+                <input class="common_input_text" type="text"/>
+                <button type="submit" class="common_btn btn_large common_btn_add">查询</button>
+            </form>
+        </div>
+        <div class="table">
+            <table cellspacing="0" cellpadding="0" id="con_table">
+                <tbody>
+                <tr class="con_table_title">
+                    <th scope="col" width="50px;">序号</th>
+                    <th scope="col" width="150px;">楼盘名称</th>
+                    <th scope="col" width="100px;">楼盘类型</th>
+                    <th scope="col" width="100px;">均价</th>
+                    <th scope="col" width="250px;">地址</th>
+                    <th scope="col" width="250px;">入住时间</th>
+                    <th scope="col" width="250px;">物业类型</th>
+                    <th scope="col" width="250px;">装修状况</th>
+                    <th scope="col" width="250px;">住户数</th>
+                    <th scope="col" width="250px;">容积率</th>
+                    <th scope="col" width="250px;">停车位</th>
+                    <th scope="col" width="250px;">产权年限</th>
+                    <th scope="col" width="250px;">开发商名称</th>
+                    <th scope="col" width="250px;">物业费</th>
+                    <th scope="col" width="250px;"> 物业公司名称</th>
+                    <th scope="col" width="250px;">开发商说明</th>
+                    <th scope="col" width="250px;">楼盘描述</th>
+                    <th scope="col" width="250px;">区域id</th>
+                    <th scope="col" width="250px;">区域行政级别</th>
+                    <th scope="col" width="250px;">经度</th>
+                    <th scope="col" width="250px;">纬度</th>
+                    <th scope="col" width="250px;">地图放大级别</th>
+                    <th scope="col" width="100px:">操作</th>
+
+                </tr>
+                <tr>
+                    <td>张三</td>
+                    <td>男</td>
+                    <td>15855555555</td>
+                    <td>买好房房地产有限公司</td>
+                    <td>张三</td>
+                    <td>男</td>
+                    <td>15855555555</td>
+                    <td>买好房房地产有限公司</td>
+                    <td>张三</td>
+                    <td>男</td>
+                    <td>15855555555</td>
+                    <td>买好房房地产有限公司</td>
+                    <td>张三</td>
+                    <td>男</td>
+                    <td>15855555555</td>
+                    <td>买好房房地产有限公司</td>
+                    <td>张三</td>
+                    <td>男</td>
+                    <td>15855555555</td>
+                    <td>买好房房地产有限公司</td>
+                    <td>张三</td>
+                    <td>男</td>
+
+                    <td class="theactions">
+                        <a href="building_editor.html" class="common_btn btn_small common_btn_normal2" title="">
+                            编辑
+                        </a>
+                        <a href="javascript:onAction('delete','1301');" class="common_btn btn_small common_btn_notice" title="">删除</a>
+                    </td>
+
+                </tr>
+                <tr>
+                    <td>张三</td>
+                    <td>男</td>
+                    <td>15855555555</td>
+                    <td>买好房房地产有限公司</td>
+                    <td>张三</td>
+                    <td>男</td>
+                    <td>15855555555</td>
+                    <td>买好房房地产有限公司</td>
+                    <td>张三</td>
+                    <td>男</td>
+                    <td>15855555555</td>
+                    <td>买好房房地产有限公司</td>
+                    <td>张三</td>
+                    <td>男</td>
+                    <td>15855555555</td>
+                    <td>买好房房地产有限公司</td>
+                    <td>张三</td>
+                    <td>男</td>
+                    <td>15855555555</td>
+                    <td>买好房房地产有限公司</td>
+                    <td>张三</td>
+                    <td>男</td>
+
+                    <td class="theactions">
+                        <a href="building_editor.html" class="common_btn btn_small common_btn_normal2" title="">
+                            编辑
+                        </a>
+                        <a href="javascript:onAction('delete','1301');" class="common_btn btn_small common_btn_notice" title="">删除</a>
+                    </td>
+
+                </tr>
+                <tr>
+                    <td>张三</td>
+                    <td>男</td>
+                    <td>15855555555</td>
+                    <td>买好房房地产有限公司</td>
+                    <td>张三</td>
+                    <td>男</td>
+                    <td>15855555555</td>
+                    <td>买好房房地产有限公司</td>
+                    <td>张三</td>
+                    <td>男</td>
+                    <td>15855555555</td>
+                    <td>买好房房地产有限公司</td>
+                    <td>张三</td>
+                    <td>男</td>
+                    <td>15855555555</td>
+                    <td>买好房房地产有限公司</td>
+                    <td>张三</td>
+                    <td>男</td>
+                    <td>15855555555</td>
+                    <td>买好房房地产有限公司</td>
+                    <td>张三</td>
+                    <td>男</td>
+
+                    <td class="theactions">
+                        <a href="building_editor.html" class="common_btn btn_small common_btn_normal2" title="">
+                            编辑
+                        </a>
+                        <a href="javascript:onAction('delete','1301');" class="common_btn btn_small common_btn_notice" title="">删除</a>
+                    </td>
+
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- #BeginLibraryItem "/html/library/thepages.lbi" --><div class="thepages"> <span class="tongjinum">共25条数据</span><a href="#" class="back-index">上一页</a> <a href="#">1</a> <a href="#" class="cur">2</a> <a href="#">3</a> <a href="#">4</a> <a href="#">5</a> <a href="#">6</a> <a href="#">7</a> <a href="#" class="many">...</a> <a href="#">19</a> <a href="#" class="next-page">下一页</a><select class="themount_select">
+        <option selected="selected">100条/页</option>
+        <option>200条/页</option>
+        <option>300条/页</option><option>400条/页</option>
+    </select>  </div><!-- #EndLibraryItem --></div>
+    <div class="clear"></div>
+</div><!-- #BeginLibraryItem "/html/library/footer.lbi" --><div class="footer">
+    <div class="inner">
+        <div class="right_part">苏州房麦乐有限公司版权所有</div>
+        <div class="left_part">V1.01</div>
+    </div>
+</div><!-- #EndLibraryItem --></body>
+<script type="text/javascript" src="../js/stickUp.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $(".setting_btn").mouseover(function(){
+            $(".setting_btn ul").show(0);
+        });
+        $(".setting_btn").mouseleave(function(){
+            $(".setting_btn ul").hide(0);
+        });
+        $(".themount_select").select2({ width:88 });
+        $("#con_table tr[class!='con_table_title']").mouseover(function(){
+            $(this).css("background-color","#f0f8fd");
+        });
+        $("#con_table tr[class!='con_table_title']").mouseleave(function(){
+            $(this).css("background-color","#fff");
+        });
+
+
+    });
+</script>
+<script type="text/javascript">
+    jQuery(function($) {$(document).ready(function() {
+        $('.con_table_title').stickUp();
+    });});
+    function onAction(action,id){
+        if (action == "delete"){
+            if (!confirm("确认删除吗？")){
+                return;
+            }
+        }
+    }
+</script>
+</html>

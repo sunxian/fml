@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
+import org.springframework.web.servlet.ModelAndView;
 
 import cn.com.fml.mvc.dmo.TsAssets;
 import cn.com.fml.mvc.service.intf.UploadFileService;
@@ -21,11 +22,11 @@ import cn.com.fml.mvc.service.intf.UploadFileService;
 
 @Controller
 @RequestMapping(value="/fileOperate")
-public class UploadHandleController {
+public class UploadHandleController extends BaseController {
 	
 	private static final Logger LOG = Logger.getLogger(UploadHandleController.class.getName());
 	
-	public static final String FILE_UPLOAD_PATH = "F:\\download";
+	//public static final String FILE_UPLOAD_PATH = "F:\\download";
 	
 	@Autowired
 	private UploadFileService uploadFileService;
@@ -54,8 +55,10 @@ public class UploadHandleController {
     }
 	
 	@RequestMapping("/upload")
-	public String upload2(HttpServletRequest request,HttpServletResponse response) throws Exception {
+	public ModelAndView upload(HttpServletRequest request,HttpServletResponse response) throws Exception {
 		LOG.info("文件上传开始");
+	    ModelAndView view = new ModelAndView();
+
 		//创建一个通用的多部分解析器
 		CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver(request.getSession().getServletContext());
 		//判断 request 是否有文件上传,即多部分请求
@@ -72,24 +75,29 @@ public class UploadHandleController {
 					//取得当前上传文件的文件名称
 					String myFileName = file.getOriginalFilename();
 					//如果名称不为"",说明该文件存在，否则说明该文件不存在
-					if(myFileName.trim() != ""){
+					if(myFileName.trim() != "") {
 						System.out.println(myFileName);
 						//重命名上传后的文件名
 						String fileName = makeFileName(file.getOriginalFilename());
 						//定义上传路径
-						String path = makePath(fileName, FILE_UPLOAD_PATH);
+						String fileUploadPath = getValueFromProperties("file_upload_path");
+						String path = makePath(fileName, fileUploadPath);
 						File localFile = new File(path + File.separator + fileName);
 						file.transferTo(localFile);
 						assets.setFileName(fileName);
 						assets.setStorePath(path);
 						assets.setFileSize(file.getSize());
+						String imageUrl = ""; 
+						assets.setImageUrl(imageUrl);
 						uploadFileService.saveTsAssets(assets);
+						view.addObject("message", "文件上传成功");
 					}
 				}
 			}
 		}
 		LOG.info("文件上传结束");
-		return "/uploadFile/uploadResult";
+        view.setViewName("/uploadFile/uploadResult");
+        return view;
 	}
 	
 	@RequestMapping("/toUpload"	) 

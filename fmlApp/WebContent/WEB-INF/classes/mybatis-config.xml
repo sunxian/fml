@@ -4,7 +4,8 @@
 <configuration>
 	<settings>  
 	    <!-- 将数据库字段命名规则A_COLUMN转换为Java使用的驼峰式命名规则aCloumn -->  
-	    <setting name="mapUnderscoreToCamelCase" value="true" />  
+	    <setting name="mapUnderscoreToCamelCase" value="true" />
+	    <setting name="logImpl" value="LOG4J"/>
 	</settings>
 	<typeAliases>
 		<package name="cn.com.fml.mvc.dmo" />
@@ -19,6 +20,7 @@
 		<mapper resource="cn/com/fml/mvc/dmo/HouseTypeMapper.xml" />
 		<mapper resource="cn/com/fml/mvc/dmo/HouseBanMapper.xml" />
 		<mapper resource="cn/com/fml/mvc/dmo/TbCommissionMapper.xml" />
+		<mapper resource="cn/com/fml/mvc/dmo/MainDataMapper.xml" />
 		<mapper resource="cn/com/fml/mvc/dmo/TbCustomerMapper.xml" />
 		
 	</mappers>

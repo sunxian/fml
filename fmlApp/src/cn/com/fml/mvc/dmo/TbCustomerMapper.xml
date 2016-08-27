@@ -8,6 +8,55 @@
         <result property="phoneNo" column="PNONE_NO" />
         <result property="level" column="LEVEL" />
     </resultMap>
+    <resultMap id="agentcustomer" type="java.util.Map"> 
+        <result property="name" column="NAME" />
+        <result property="phoneNo" column="PNONE_NO" />
+        <result property="agentAccount" column="AGENT_ACCOUNT" />
+         <result property="buildingName" column="BUILDING_NAME" />
+         <result property="createTime" column="CREATE_TIME" />
+          <result property="status" column="STATUS" />
+    </resultMap>
+     <resultMap id="keycustomer" type="java.util.Map"> 
+        <result property="name" column="NAME" />
+        <result property="phoneNo" column="PNONE_NO" />
+        <result property="keyAccount" column="KEY_ACCOUNT" />
+        <result property="buildingName" column="BUILDING_NAME" />
+         <result property="createTime" column="CREATE_TIME" />
+          <result property="status" column="STATUS" />
+    </resultMap>
+    <!-- 查找经纪人客户 -->
+    <select id="queryAgentCustomers" resultMap="agentcustomer" parameterType="java.lang.String">
+select a.NAME  ,a.PNONE_NO,b.PHONE_NO as AGENT_ACCOUNT,c.BUILDING_NAME,d.CREATE_TIME,d.STATUS from tb_customer a 
+left join ts_user b on a.TS_USER_ID=b.id left JOIN TB_CUSTOMER_INTENTION_BUILDING c on a.id=c.TB_CUSTOMER_ID left join 
+TB_CUSTOMER_REPORT d on a.id=d.TB_CUSTOMER_ID where b.ROLE_CODE='agent'
+<if test="name != null">and name LIKE '%${name}%'</if>
+		<if test="id != null">and id = #{id}</if>
+		LIMIT #{startIndex},#{pageSize}
+	</select>	
+	<!-- 经纪人客户数量 -->
+	<select  id="getAgentCustomersCount" resultType="Long" parameterType="java.util.Map">
+		SELECT count(*) from  tb_customer a join ts_user b on a.TS_USER_ID=b.id 
+		where a.DELETE_FLAG='0' and b.ROLE_CODE='agent'
+		<if test="name != null">and name LIKE '%${name}%'</if>
+		<if test="id != null">and id = #{id}</if>
+	</select>
+     <!-- 查找关键人客户 -->
+    <select id="queryKeyCustomers" resultMap="keycustomer" parameterType="java.lang.String">
+select a.NAME  ,a.PNONE_NO,b.PHONE_NO as KEY_ACCOUNT,c.BUILDING_NAME,d.CREATE_TIME,d.STATUS from tb_customer a 
+left join ts_user b on a.TS_USER_ID=b.id left JOIN TB_CUSTOMER_INTENTION_BUILDING c on a.id=c.TB_CUSTOMER_ID left join 
+TB_CUSTOMER_REPORT d on a.id=d.TB_CUSTOMER_ID where b.ROLE_CODE='key'
+		<if test="name != null">and name LIKE '%${name}%'</if>
+		<if test="id != null">and id = #{id}</if>
+		LIMIT #{startIndex},#{pageSize}
+	</select>
+	<!-- 关键人客户数量 -->
+	<select  id="getKeyCustomersCount" resultType="Long" parameterType="java.util.Map">
+		SELECT count(*) from  tb_customer a join ts_user b on a.TS_USER_ID=b.id 
+		where a.DELETE_FLAG='0' and b.ROLE_CODE='key'
+		<if test="name != null">and name LIKE '%${name}%'</if>
+		<if test="id != null">and id = #{id}</if>
+	</select>
+	
 <!-- 累计带看次数 -->
 	<select id="queryTimesByMonth" resultType="Integer" parameterType="java.lang.Integer">
 		select count(id) from tb_customer_report 

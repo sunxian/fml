@@ -1,5 +1,6 @@
 package cn.com.fml.mvc.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -7,6 +8,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import cn.com.fml.mvc.common.PageBean;
 import cn.com.fml.mvc.dao.intf.TbCustomerDao;
 import cn.com.fml.mvc.service.intf.CustomerService;
 @Service("customerService")
@@ -94,6 +96,98 @@ private TbCustomerDao tbCustomerDao;
 //		}
 		return customerList;
 	}
+
+@Override
+public PageBean getAgentCustomersList(int pageNo, int pageSize,
+		Map<String, Object> param) throws Exception {
+	// TODO Auto-generated method stub
+	Long count = tbCustomerDao.getAgentCustomersCount(param);
+    PageBean pageBean = new PageBean(pageNo, count.intValue());
+    param.put("startIndex", pageBean.getStartIndex());
+    param.put("pageSize", pageSize);
+    List<Map<String,Object>> list =tbCustomerDao.queryAgentCustomers(param);	
+    //0：未报备，1：已报备（未带看），2：已带看（待成交），3：已成交（未结佣），4：已结佣，5：无效客户',
+    for(Map<String,Object> item:list){
+    	String status=null;
+    
+		if(item.get("status")==null){
+			item.put("status", "未报备");}
+		else{
+			status= (String) item.get("status");
+    	switch (Integer.parseInt(status)) {
+    	case 0:
+   		item.put("status", "未报备");
+  		break;
+    	case 1:
+    		item.put("status", "已报备");
+   		break;
+    	case 2:
+    		item.put("status", "已带看");
+   		break;
+    	case 3:
+    		item.put("status", "已成交");
+    	
+   		break;
+    	case 4:
+    		item.put("status", "已结佣");
+    		break;
+    	case 5:
+    		item.put("status", "无效客户");
+    		break;
+    	default:
+   		break;
+    }}
+    }
+    pageBean.setList(list);
+    return pageBean;
+	
+}
+
+@Override
+public PageBean getKeyCustomersList(int pageNo, int pageSize,
+		Map<String, Object> param) throws Exception {
+	Long count = tbCustomerDao.getKeyCustomersCount(param);
+    PageBean pageBean = new PageBean(pageNo, count.intValue());
+    param.put("startIndex", pageBean.getStartIndex());
+    param.put("pageSize", pageSize);
+    List<Map<String,Object>> list =tbCustomerDao.queryKeyCustomers(param);	
+    //0：未报备，1：已报备（未带看），2：已带看（待成交），3：已成交（未结佣），4：已结佣，5：无效客户',
+    for(Map<String,Object> item:list){
+    	String status=null;
+    
+		if(item.get("status")==null){
+			item.put("status", "未报备");}
+		else{
+			status= (String) item.get("status");
+    	switch (Integer.parseInt(status)) {
+    	case 0:
+   		item.put("status", "未报备");
+  		break;
+    	case 1:
+    		item.put("status", "已报备");
+   		break;
+    	case 2:
+    		item.put("status", "已带看");
+   		break;
+    	case 3:
+    		item.put("status", "已成交");
+    	
+   		break;
+    	case 4:
+    		item.put("status", "已结佣");
+    		break;
+    	case 5:
+    		item.put("status", "无效客户");
+    		break;
+    	default:
+   		break;
+    }}
+    }
+	 
+ 
+    pageBean.setList(list);
+    return pageBean;
+}
 
 	
 }

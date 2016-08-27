@@ -36,5 +36,5 @@ public class DevelopersNewsController {
 		}
 		map.put("success",newsList);
 		return map;
-}
+	}
 }

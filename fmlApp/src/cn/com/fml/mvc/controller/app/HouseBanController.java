@@ -30,8 +30,6 @@ public class HouseBanController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		String buildingId=request.getParameter("id");
 	
-		
-		
 		List<Map<String, Object>> houseBanInfoList = houseBanService.queryHouseBanInfoList(new Long(buildingId));
 		map.put("success", houseBanInfoList);
 		if (!CollectionUtils.isEmpty(houseBanInfoList)){
@@ -40,7 +38,6 @@ public class HouseBanController {
 				houseBanInfo.put("otherHouseType",otherHouseType);
 			}
 		}
-		
 		
 		return map;
 	}

@@ -2,6 +2,8 @@ package cn.com.fml.mvc.dao.intf;
 import java.util.List;
 import java.util.Map;
 
+import cn.com.fml.mvc.dmo.TbBuilding;
+
 /**
  * @author hasee
  * 获得精品楼盘信息
@@ -25,5 +27,15 @@ public interface TbHotBuildingDao {
 	
 	Map<String, Object> getBuildingRegion(Long buildingId);
 	
-	List<Map<String, Object>> getBuildingsList();
-}
+	List<Map<String, Object>> getBuildingsList(Map<String, Object> param);
+	
+	List<Map<String, Object>> getProjectList(Map<String, Object> param);
+	
+	Long getProjectListCount(Map<String, Object> param);
+	 Boolean addBuilding(TbBuilding tbBuilding);
+	 Boolean  deleteBuilding(String buildingId);
+	 Boolean updateBuilding(TbBuilding building);
+	TbBuilding selectBuildingToUpdate(String  id);
+		}
+
+

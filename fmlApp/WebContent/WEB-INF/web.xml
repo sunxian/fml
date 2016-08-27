@@ -42,9 +42,8 @@
     <filter-mapping>  
         <filter-name>fmlfilter</filter-name>  
         <url-pattern>/*</url-pattern>  
-    </filter-mapping>	
-	
-
+    </filter-mapping>
+    
 	<servlet>
 		<servlet-name>springMvc</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -59,6 +58,19 @@
 		<servlet-name>springMvc</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
+
+	<!--
+	<servlet>
+		<servlet-name>fmlServlet</servlet-name>
+		<servlet-class>cn.com.fml.mvc.common.FmlServlet</servlet-class>
+		<load-on-startup>2</load-on-startup>
+	</servlet>
+	 将fmlServlet配置成缺省Servlet 
+	<servlet-mapping>
+		<servlet-name>fmlServlet</servlet-name>
+		<url-pattern>/*</url-pattern>
+	</servlet-mapping>
+	-->
 	
     <!-- 会话超时配置（单位为分钟） -->
 	<session-config> 

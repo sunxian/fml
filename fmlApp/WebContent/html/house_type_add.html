@@ -1,0 +1,187 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link href="../style/main.css" rel="stylesheet" type="text/css" />
+    <link href="../style/select2.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="../js/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="../js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../js/select2.js"></script>
+    <title>房麦乐后台管理系统</title>
+</head>
+<body><!-- #BeginLibraryItem "/html/library/header1.lbi" --><div class="header_styel1">
+    <div class="inner">
+        <div class="tools">
+            <div class="actions"> <span class="setting_btn">系统管理
+        <ul>
+          <li><a href="user_list.html">用户管理</a></li>
+          <li><a href="role_list.html">角色权限管理</a></li>
+          <li><a href="company_list.html">公司管理</a></li>
+          <li><a href="brand_list.html">品牌管理</a></li>
+          <li><a href="model_list.html">车型管理</a></li>
+          <li><a href="person_list.html">评价人员管理</a></li>
+          <li><a href="dict_list.html">数据字典</a></li>
+          <li><a href="system_setting_list.html">设备管理</a></li>
+          <li><a href="qa_list.html">题库管理</a></li>
+          <li><a href="data_list.html">数据管理</a></li>
+          <li><a href="sysconfig.html">系统配置</a></li>
+        </ul>
+        </span> <a href="login.html" class="logout">退出</a>
+                <div class="clear"></div>
+            </div>
+            <span class="user_info">欢迎您，李小萌</span> </div>
+        <a href="project_list.html" class="logo">FBS</a> </div>
+</div><!-- #EndLibraryItem --><div class="page_path"> <a href="#" class="backtoindex"></a> <span>系统管理</span><i>&gt;</i><span>品牌管理</span></div>
+<div class="page_inner">
+    <div class="left_menu">
+        <ul>
+            <li><a href="user_list.html">用户管理</a></li>
+            <li><a href="role_list.html">角色权限管理</a></li>
+            <li><a href="company_list.html">公司管理</a></li>
+            <li class="cur"><a href="brand_list.html">品牌管理</a></li>
+            <li><a href="model_list.html">车型管理</a></li>
+            <li><a href="person_list.html">评价人员管理</a></li>
+            <li><a href="dict_list.html">数据字典</a></li>
+            <li><a href="system_setting_list.html">设备管理</a></li>
+            <li><a href="qa_list.html">题库管理</a></li>
+            <li><a href="data_list.html">数据管理</a></li>
+            <li><a href="sysconfig.html">系统配置</a></li>
+        </ul>
+    </div>
+    <div class="right_main">
+        <div class="common_header border_bottom">
+            <div class="actions_btn"></div>
+            <h3>品牌信息</h3>
+        </div>
+        <div>
+            <dl class="form_edit">
+                <dt><span class="item_title">创建时间</span></dt>
+                <dd><input type="text" class="common_input_text" name="" isrequired="true" autocomplete="off" value=""></dd>
+                <dt><span class="item_title">更新时间</span></dt>
+                <dd><input type="text" class="common_input_text" name="" isrequired="true" autocomplete="off" value=""></dd>
+                <dt><span class="item_title">删除标识</span></dt>
+                <dd><input type="text" class="common_input_text" name="" isrequired="true" autocomplete="off" value=""></dd>
+                <dt><span class="item_title">所属楼盘</span></dt>
+                <dd>
+                    <div class="dropdown">
+                        <button type="button" class="btn dropdown-toggle" id=""
+                                data-toggle="dropdown">
+                            所属楼盘
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                            <li role="presentation">
+                                <a role="menuitem" tabindex="-1" href="#">楼盘1</a>
+                            </li>
+                            <li role="presentation">
+                                <a role="menuitem" tabindex="-1" href="#">楼盘2</a>
+                            </li>
+                            <li role="presentation">
+                                <a role="menuitem" tabindex="-1" href="#">楼盘1</a>
+                            </li>
+                            <li role="presentation">
+                                <a role="menuitem" tabindex="-1" href="#">楼盘2</a>
+                            </li>
+
+
+                        </ul>
+                    </div>
+                </dd>
+                <dt><span class="item_title">所属楼栋</span></dt>
+                <dd>
+                    <div class="dropdown">
+                        <button type="button" class="btn dropdown-toggle" id=""
+                                data-toggle="dropdown">
+                            所属楼栋
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                            <li role="presentation">
+                                <a role="menuitem" tabindex="-1" href="#">楼栋1</a>
+                            </li>
+                            <li role="presentation">
+                                <a role="menuitem" tabindex="-1" href="#">楼栋2</a>
+                            </li>
+                        </ul>
+                    </div>
+                </dd>
+                <dt><span class="item_title">户型名称</span></dt>
+                <dd><input type="text" class="common_input_text" name="" isrequired="true" autocomplete="off" value=""></dd>
+                <dt><span class="item_title">户型描述</span></dt>
+                <dd><input type="text" class="common_input_text" name="" isrequired="true" autocomplete="off" value=""></dd>
+                <dt><span class="item_title">户型图片</span></dt>
+                <dd>
+                    <div class="upload_widget">
+                        <div class="thepic ">
+                            <img src="../images/pic_default_project.png" />
+                            <a href="#" class="btn_upload">选择图片</a>
+                        </div>
+                    </div>
+                </dd>
+
+                <dt><span class="item_title">客厅数目</span></dt>
+                <dd><input type="text" class="common_input_text" name="" isrequired="true" autocomplete="off" value=""></dd>
+                <dt><span class="item_title">卧室数目</span></dt>
+                <dd><input type="text" class="common_input_text" name="" isrequired="true" autocomplete="off" value=""></dd>
+                <dt><span class="item_title">卫生间数目</span></dt>
+                <dd><input type="text" class="common_input_text" name="" isrequired="true" autocomplete="off" value=""></dd>
+                <dt><span class="item_title">面积</span></dt>
+                <dd><input type="text" class="common_input_text" name="" isrequired="true" autocomplete="off" value=""></dd>
+                <dt><span class="item_title">单位</span></dt>
+                <dd><input type="text" class="common_input_text" name="" isrequired="true" autocomplete="off" value=""></dd>
+                <dt><span class="item_title">位置</span></dt>
+                <dd><input type="text" class="common_input_text" name="" isrequired="true" autocomplete="off" value=""></dd>
+                <dt><span class="item_title">总价</span></dt>
+                <dd><input type="text" class="common_input_text" name="" isrequired="true" autocomplete="off" value=""></dd>
+                <dt><span class="item_title">是否主力户型</span></dt>
+                <dd><input type="text" class="common_input_text" name="" isrequired="true" autocomplete="off" value=""></dd>
+                <dt><span class="item_title">是否在售</span></dt>
+                <dd><input type="text" class="common_input_text" name="" isrequired="true" autocomplete="off" value=""></dd>
+
+                <dt></dt>
+                <dd>
+                    <a href="brand_list.tml" class="common_btn btn_large common_btn_add" title="">
+                        确认提交
+
+                    </a>
+
+                    <a href="brand_list.tml" class="common_btn btn_large common_btn_normal" title="">
+                        取消
+
+                    </a>
+
+                </dd>
+            </dl>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <div class="clear"></div>
+
+</div>
+<!-- #BeginLibraryItem "/html/library/footer.lbi" -->
+<div class="footer">
+    <div class="inner">
+        <div class="right_part">上海大众汽车有限公司版权所有</div>
+        <div class="left_part">V1.01</div>
+    </div>
+</div><!-- #EndLibraryItem --><script>
+    $(document).ready(function(){
+        $(".setting_btn").mouseover(function(){
+            $(".setting_btn ul").show(0);
+        });
+        $(".setting_btn").mouseleave(function(){
+            $(".setting_btn ul").hide(0);
+        });
+        $("#con_table tr[class!='con_table_title']").mouseover(function(){
+            $(this).css("background-color","#f0f8fd");
+        });
+        $("#con_table tr[class!='con_table_title']").mouseleave(function(){
+            $(this).css("background-color","#fff");
+        });
+        $(".common_select_company").select2({ width: 252,placeholder: "请选择所属公司…" });
+    });
+</script>
+</body>
+
+</html>

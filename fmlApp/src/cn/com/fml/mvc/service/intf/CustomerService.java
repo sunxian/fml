@@ -3,6 +3,8 @@ package cn.com.fml.mvc.service.intf;
 import java.util.List;
 import java.util.Map;
 
+import cn.com.fml.mvc.common.PageBean;
+
 public interface CustomerService {
 	//客户首页
 	int queryTimesByMonth()throws Exception;
@@ -19,4 +21,9 @@ double queryminPrice(Long customerId)throws Exception;
  List<String> queryTypes(Long customerId)throws Exception;
  List<String> queryAreas(Long customerId)throws Exception;
 	 List<String> queryHouseTypes(Long customerId)throws Exception;
+	 //经纪人客户
+	 PageBean getAgentCustomersList(int pageNo, int pageSize, Map<String, Object> param) throws Exception;
+	 
+	 //关键人客户
+	 PageBean getKeyCustomersList(int pageNo, int pageSize, Map<String, Object> param) throws Exception;
 }

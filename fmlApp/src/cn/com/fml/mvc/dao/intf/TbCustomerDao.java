@@ -19,5 +19,11 @@ public interface TbCustomerDao {
  List<String> queryTypes(Long customerId);
  List<String> queryAreas(Long customerId);
  List<String> queryHouseTypes(Long customerId);
-
+ //经纪人客户
+ List<Map<String,Object>> queryAgentCustomers(Map<String, Object> param);
+ Long getAgentCustomersCount(Map<String, Object> param);
+ 
+ //关键人客户
+ List<Map<String,Object>> queryKeyCustomers(Map<String, Object> param);
+ Long getKeyCustomersCount(Map<String, Object> param);
 }

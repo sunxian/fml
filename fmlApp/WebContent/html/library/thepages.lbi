@@ -1,0 +1,5 @@
+<div class="thepage_wraper"><div class="thepages"> <span class="tongjinum">共25条数据</span><a href="#" class="back-index">上一页</a> <a href="#">1</a> <a href="#" class="cur">2</a> <a href="#">3</a> <a href="#">4</a> <a href="#">5</a> <a href="#">6</a> <a href="#">7</a> <a href="#" class="many">...</a> <a href="#">19</a> <a href="#" class="next-page">下一页</a><select class="themount_select">
+	<option selected="selected">100条/页</option>
+    <option>200条/页</option>
+    <option>300条/页</option><option>400条/页</option>
+</select>  </div></div>
