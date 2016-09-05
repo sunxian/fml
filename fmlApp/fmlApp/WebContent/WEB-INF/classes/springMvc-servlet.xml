@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"  
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"  
+    xmlns:context="http://www.springframework.org/schema/context"  
+    xmlns:mvc="http://www.springframework.org/schema/mvc"  
+    xsi:schemaLocation="   
+           http://www.springframework.org/schema/beans   
+           http://www.springframework.org/schema/beans/spring-beans-3.1.xsd   
+           http://www.springframework.org/schema/context   
+           http://www.springframework.org/schema/context/spring-context-3.1.xsd  
+           http://www.springframework.org/schema/mvc   
+           http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd">
+    
+    <!-- 启动扫描所有的controller -->      
+    <context:component-scan base-package="cn.com.fml.mvc.controller" use-default-filters="false">
+    	<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+    
+    <!--主要作用于@Controller，激活该模式
+    	下面是一种简写形式，完全可以手动配置替代这种简写形式；
+    	 它会自动注册DefaultAnnotationHandlerMapping与AnnotationMethodHandlerAdapter 两个bean,
+    	 是spring MVC为@Controllers分发请求所必须的
+     -->
+    <mvc:annotation-driven validator="validator" conversion-service="conversion-service">
+        <mvc:message-converters register-defaults="true">
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                <constructor-arg value="UTF-8" />
+            </bean>
+		    <bean id="fastJsonHttpMessageConverter"
+		        class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
+		        <property name="charset" value="UTF-8" />
+		        <property name="supportedMediaTypes">
+		        <list>
+		        	<!-- 这里顺序不能反，一定先写text/html,不然ie下出现下载提示 -->
+				    <value>text/html;charset=UTF-8</value>
+				    <value>text/json;charset=UTF-8</value>
+				    <value>application/json;charset=UTF-8</value>
+		        </list>
+		    </property>
+		    </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+    
+    <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+        <property name="providerClass"  value="org.hibernate.validator.HibernateValidator"/>
+        <!--不设置则默认为classpath下的 ValidationMessages.properties -->
+        <property name="validationMessageSource" ref="validatemessageSource"/>
+    </bean>
+    <bean id="conversion-service" class="org.springframework.format.support.FormattingConversionServiceFactoryBean" />
+    <bean id="validatemessageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">  
+        <property name="basename" value="classpath:validatemessages"/>  
+        <property name="fileEncodings" value="utf-8"/>  
+        <property name="cacheSeconds" value="120"/>  
+    </bean>
+    
+  
+    <!-- 如果当前请求为"/"时,则转发到"/helloworld/index" -->
+    <mvc:view-controller path="/" view-name="forward:/helloworld/index"/>
+    <!-- 配置js,css等静态文件直接映射到对应的文件夹,不被DispatcherServlet处理 -->
+    <mvc:resources mapping="/js/**" location="/js/"/>
+    <mvc:resources mapping="/css/**" location="/css/"/>  
+	<mvc:resources mapping="/fonts/**" location="/fonts/" />
+    <mvc:resources mapping="/plugins/**" location="/plugins/" />
+    <mvc:resources mapping="/images/**" location="/images/" />
+    <mvc:default-servlet-handler />
+    
+    <!-- 视图解析器 jsp页面解析器，当Controller返回XXX字符串时，先通过拦截器，然后该类就会在jsp/目录下，查找XXX.jsp文件-->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+    	<property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
+    	<property name="contentType" value="text/html"/>
+    	<property name="prefix" value="/jsp/"></property>
+    	<property name="suffix" value=".jsp"></property>
+    </bean>
+    
+    <bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="defaultEncoding">
+			<value>UTF-8</value>
+		</property>
+		<property name="maxUploadSize">
+			<value>32505856</value><!-- 上传文件大小限制为31M，31*1024*1024 -->
+		</property>
+		<property name="maxInMemorySize">
+			<value>4096</value>
+		</property>
+	</bean>
+	
+	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+		<!-- 国际化信息所在的文件名 -->
+		<property name="basename" value="messages"></property>
+		<!-- 如果在国际化资源文件中找不到对应代码的信息，就用这个代码作为名称  -->   
+		<property name="useCodeAsDefaultMessage" value="true"></property>
+	</bean>
+	
+	<mvc:interceptors>
+		<!-- 国际化操作拦截器 如果采用基于（请求/Session/Cookie）则必需配置 -->
+		<bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor"></bean>
+		<!-- 如果不定义 mvc:mapping path 将拦截所有的URL请求 -->
+    	<bean class="cn.com.mobilereal.mvc.auth.AuthInterceptor"></bean>
+	</mvc:interceptors>
+	
+	<bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver" />
+    <!-- <bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
+	    设置cookieName名称，可以根据名称通过js来修改设置，也可以像上面演示的那样修改设置，默认的名称为 类名+LOCALE（即：org.springframework.web.servlet.i18n.CookieLocaleResolver.LOCALE
+	    <property name="cookieName" value="lang"/>
+	    设置最大有效时间，如果是-1，则不存储，浏览器关闭后即失效，默认为Integer.MAX_INT
+	    <property name="cookieMaxAge" value="100000"/>
+	    设置cookie可见的地址，默认是“/”即对网站所有地址都是可见的，如果设为其它地址，则只有该地址或其后的地址才可见
+	    <property name="cookiePath" value="/"/>
+    </bean> -->
+    <!-- <bean id="localeResolver" class="cn.com.mobilereal.mvc.util.MyAcceptHeaderLocaleResolver" /> -->
+</beans>

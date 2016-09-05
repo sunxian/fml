@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link href="../style/main.css" rel="stylesheet" type="text/css" />
+    <link href="../style/select2.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="../js/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="../js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../js/select2.js"></script>
+    <script type="text/javascript" src="../static/date/laydate.js"></script>
+
+    <title>房麦乐后台管理系统</title>
+    <style type="text/css">
+        .tip{
+            background-color: white;
+            position: absolute;
+            font-size: 12px;
+            width: 20px;
+            height: 20px;
+        }
+
+        #preview, .img, img
+        {
+            width:600px;
+            height:auto;
+            min-height: 200px;
+            max-width: 1060px;
+        }
+        #preview
+        {
+            border:1px solid #000;
+            position: relative;
+        }
+
+        table th,table td{
+            padding:5px;
+        }
+        table td .form-control{
+            padding: 0 2px;
+        }
+        .dele{
+            cursor: pointer;
+        }
+        dl{
+            margin-top: 40px;
+        }
+        .form-control{
+            height: 34px !important;
+        }
+    </style>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('#submit').click(function () {
+                var saveDataAry=[];
+                var trs=$('#detail tr');
+                console.log('len='+trs.length);
+                for(var i=0;i<trs.length;i++){
+                //    console.log(i);
+                //    console.log(trs.outerHTML);
+                    var data= new Object;
+                    var inputs=trs.eq(i).find('input');
+               //     console.log(inputs);
+                    data.name=inputs.eq(0).val();
+                    data.isSalingFlag=inputs.eq(1).val();
+                    data.openTime=inputs.eq(2).val();
+                    data.leadTime=inputs.eq(3).val();
+                    data.units=inputs.eq(4).val();
+                    data.layers=inputs.eq(5).val();
+                    data.salingHouses=inputs.eq(6).val();
+                    data.houseRatio=inputs.eq(7).val();
+                    data.x=inputs.eq(8).val();
+                    data.y=inputs.eq(9).val();
+                    saveDataAry.push(data);
+                }
+
+                console.log(saveDataAry);
+
+                /*       $.ajax({
+                           type:"POST",
+                           url:"user/saveUser",
+                           dataType:"json",
+                           contentType:"application/json",
+                           data:JSON.stringify(saveData),
+                           success:function(data){
+
+                           }
+                       });*/
+            });
+
+        });
+    </script>
+
+</head>
+<body><!-- #BeginLibraryItem "/html/library/header1.lbi" --><div class="header_styel1">
+    <div class="inner">
+        <div class="tools">
+            <div class="actions"> <span class="setting_btn">系统管理
+        <ul>
+          <li><a href="user_list.html">用户管理</a></li>
+          <li><a href="role_list.html">角色权限管理</a></li>
+          <li><a href="company_list.html">公司管理</a></li>
+          <li><a href="brand_list.html">品牌管理</a></li>
+          <li><a href="model_list.html">车型管理</a></li>
+          <li><a href="person_list.html">评价人员管理</a></li>
+          <li><a href="dict_list.html">数据字典</a></li>
+          <li><a href="system_setting_list.html">设备管理</a></li>
+          <li><a href="qa_list.html">题库管理</a></li>
+          <li><a href="data_list.html">数据管理</a></li>
+          <li><a href="sysconfig.html">系统配置</a></li>
+        </ul>
+        </span> <a href="login.html" class="logout">退出</a>
+                <div class="clear"></div>
+            </div>
+            <span class="user_info">欢迎您，李小萌</span> </div>
+        <a href="project_list.html" class="logo">FBS</a> </div>
+</div><!-- #EndLibraryItem --><div class="page_path"> <a href="#" class="backtoindex"></a> <span>系统管理</span><i>&gt;</i><span>品牌管理</span></div>
+<div class="page_inner">
+    <div class="left_menu">
+        <ul>
+            <li><a href="user_list.html">用户管理</a></li>
+            <li><a href="role_list.html">角色权限管理</a></li>
+            <li><a href="company_list.html">公司管理</a></li>
+            <li class="cur"><a href="brand_list.html">品牌管理</a></li>
+            <li><a href="model_list.html">车型管理</a></li>
+            <li><a href="person_list.html">评价人员管理</a></li>
+            <li><a href="dict_list.html">数据字典</a></li>
+            <li><a href="system_setting_list.html">设备管理</a></li>
+            <li><a href="qa_list.html">题库管理</a></li>
+            <li><a href="data_list.html">数据管理</a></li>
+            <li><a href="sysconfig.html">系统配置</a></li>
+        </ul>
+    </div>
+    <div class="right_main">
+        <div class="common_header border_bottom">
+            <div class="actions_btn"></div>
+            <h3>品牌信息</h3>
+        </div>
+        <div class="form_edit">
+            <div id="preview"></div>
+            <input type="file" onchange="preview(this)" />
+            <div>
+
+                <table>
+                    <col width="80px">
+                    <col width="80px">
+                    <col width="80px">
+                    <col width="160px">
+                    <col width="160px">
+                    <col width="60px">
+                    <col width="60px">
+                    <col width="80px">
+                    <col width="80px">
+                    <col width="60px">
+                    <col width="60px">
+                    <col width="40px">
+
+                    <thead>
+                    <tr>
+                        <th>临时id</th>
+                        <th>楼栋号</th>
+                        <th>状态</th>
+                        <th>开盘时间</th>
+                        <th>入住时间</th>
+                        <th>单元数</th>
+                        <th>层数</th>
+                        <th>在售房源数</th>
+                        <th>梯户配比</th>
+                        <th>X坐标</th>
+                        <th>Y坐标</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody id="detail">
+                    </tbody>
+                </table>
+            </div>
+
+            <dl>
+                <dt></dt>
+                <dd>
+                    <a href="#" id="submit" class="common_btn btn_large common_btn_add" title="">
+                        确认提交
+
+                    </a>
+
+                    <a href="#" class="common_btn btn_large common_btn_normal" title="">
+                        取消
+
+                    </a>
+
+                </dd>
+            </dl>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <div class="clear"></div>
+
+
+</div>
+
+<!-- #BeginLibraryItem "/html/library/footer.lbi" -->
+<div class="footer">
+    <div class="inner">
+        <div class="right_part">上海大众汽车有限公司版权所有</div>
+        <div class="left_part">V1.01</div>
+    </div>
+</div><!-- #EndLibraryItem --><script>
+    $(document).ready(function(){
+        $(".setting_btn").mouseover(function(){
+            $(".setting_btn ul").show(0);
+        });
+        $(".setting_btn").mouseleave(function(){
+            $(".setting_btn ul").hide(0);
+        });
+        $("#con_table tr[class!='con_table_title']").mouseover(function(){
+            $(this).css("background-color","#f0f8fd");
+        });
+        $("#con_table tr[class!='con_table_title']").mouseleave(function(){
+            $(this).css("background-color","#fff");
+        });
+        $(".common_select_company").select2({ width: 252,placeholder: "请选择所属公司…" });
+    });
+</script>
+<script type="text/javascript">
+
+    var id=1;
+    var width=0.0;
+    var height=0.0;
+    var flag=-1;
+    laydate.skin('lan');//切换皮肤，请查看skins下面皮肤库
+
+    function preview(file)
+    {
+        var prevDiv = document.getElementById('preview');
+        if (file.files && file.files[0])
+        {
+            var reader = new FileReader();
+            reader.onload = function(evt){
+                prevDiv.innerHTML = '<img id="unit-img" onclick="addItem(event)" src="' + evt.target.result + '" />';
+            }
+            reader.readAsDataURL(file.files[0]);
+
+        }
+        else
+        {
+            prevDiv.innerHTML = '<div class="img"  style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src=\'' + file.value + '\'"></div>';
+        }
+        $("#detail").html("");
+        flag=1;
+    }
+
+    function addTipDiv(x,y) {
+        var div=$('<div id="tip'+id+'"></div>');
+        div.addClass("tip");
+        div.text("#"+id);
+        div.css("top",y-20+"px");
+        div.css("left",x+"px");
+        $("#preview").append(div);
+    }
+
+
+
+    function addDate(t_id) {
+        setTimeout(function () {
+            laydate({elem: '#indate-open'+t_id});//绑定元素
+            laydate({elem: '#indate-lead'+t_id});//绑定元素
+         //   console.log("绑定日历indate-open"+t_id);
+
+        },500);
+
+    }
+
+    function addRow(x,y) {
+        x=x/width;
+        y=y/height;
+        var html='';
+        html='<td>'+id+'#</td>' +
+                '<td><input type="text" class="form-control" placeholder="楼栋号"></td>' +
+                '<td><input type="text" class="form-control" placeholder="在售状态"></td>' +
+                '<td><input type="text" class="form-control laydate-icon" id="indate-open'+id+'" placeholder="开盘时间"></td>' +
+                '<td><input type="text" class="form-control laydate-icon" id="indate-lead'+id+'" placeholder="入住时间"></td>' +
+                '<td><input type="text" class="form-control" placeholder="单元数"></td>' +
+                '<td><input type="text" class="form-control" placeholder="层数"></td>' +
+                '<td><input type="text" class="form-control" placeholder="在售房源数"></td>' +
+                '<td><input type="text" class="form-control" placeholder="梯户配比"></td>'+
+                '<td><input type="text" class="form-control" value='+x+' readonly></td>'+
+                '<td><input type="text" class="form-control" value='+y+' readonly></td>'+
+                '<td><span onclick="dele('+id+')" class="dele">删除</span></td>';
+        var row=$('<tr id="row'+id+'"></tr>');
+        row.html(html);
+        $("#detail").append(row);
+        addDate(id);
+    }
+    function dele(i) {
+       // console.log("删除"+i);
+        $('#row'+i).remove();
+        $('#tip'+i).remove();
+    }
+    function addItem (event) {
+        if(flag==1){
+            width=$('#unit-img').width();
+            height=$('#unit-img').height();
+         //   console.log(width+';'+height);
+            flag=0;
+        }
+
+        x=event.offsetX;
+        y=event.offsetY;
+     //   console.log("X 坐标: " + x + ", Y 坐标: " + y);
+        addRow(x,y);
+        addTipDiv(x,y);
+        id++;
+
+        //  console.log("hh");
+    }
+</script>
+</body>
+
+</html>

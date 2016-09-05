@@ -1,0 +1,2 @@
+<%@ attribute name="label" required="false" rtexprvalue="true" %><%@ attribute name="value" required="false" rtexprvalue="true" %><%@ attribute name="curValue" required="false" rtexprvalue="true" %>  
+<option value="${value}" ${(value==curValue)?"selected=\"selected\"":""}>${label}</option>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.fml.mvc.dao.intf.TsRoleDao">
+	<!-- 取得用户列表 -->
+	<select id="getTsRole" resultType="TsRole" parameterType="TsRole">
+		select * From ts_role
+		<where>
+			<if test="code != null and code != null">
+				code =#{code}
+			</if>
+			<if test="id!=null">
+				and id=#{id}
+			</if>
+		</where>
+	</select>
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

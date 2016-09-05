@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.fml.mvc.dao.intf.TbCommissionDao">
+	<!-- 取得佣金详情列表 -->
+	<resultMap id="commissionInfo" type="java.util.Map">
+        <id property="id" column="ID" />
+        <result property="amount" column="AMOUNT" />
+        <result property="type" column="TYPE" />
+        <result property="settlementNode" column="SETTLEMENT_NODE" />
+        <result property="desc" column="DESCP" />
+    </resultMap>
+    <!-- 取得佣金管理列表 -->
+    <resultMap id="commissionManager" type="java.util.Map">
+        <id property="id" column="ID" />
+        <result property="amount" column="AMOUNT" />
+        <result property="type" column="TYPE" />
+        <result property="settlementNode" column="SETTLEMENT_NODE" />
+        <result property="desc" column="DESCP" />
+        <result property="buildingName" column="BUILDINGNAME" />
+        <result property="role" column="ROLE" />
+        <result property="developerName" column="DEVELOPERNAME" />
+        
+    </resultMap>
+
+<select id="getCommissionById" resultMap="commissionInfo">
+		SELECT amount,type,SETTLEMENT_NODE,DESCP from tb_commission where DELETE_FLAG='0' and id=#{id} 
+	</select>
+	<!-- 用户佣金 -->
+	<select id="getAmount" resultType="Double" parameterType="java.lang.String">
+		select SUM(amount) from tb_user_commission
+		<where>
+			<if test="status!= null">
+				status =#{status}
+			</if>
+		</where>
+	</select>
+	<select id="queryCommissionList" resultType="Map"  >
+
+		select CUSTOMER_NAME ,CUSTOMER_PHONE,BUILDING_NAME,TRADE_TIME,AMOUNT,STATUS from tb_user_commission where TS_USER_ID=1;
+		
+	</select>
+	<!--  取得佣金管理列表 -->
+	<select id="getCommissionManagerList" resultMap="commissionManager" parameterType="java.util.Map"  >
+		select b.name as DEVELOPERNAME,c.name as BUILDINGNAME ,d.name as role,a.amount,a.type,a.SETTLEMENT_NODE,a.DESCP from tb_commission a join tb_developers b on a.DEVELOPERS_ID=b.id join 
+		tb_building  c on a.TB_BUILDING_ID=c.id join ts_role d on a.TS_ROLE_ID=d.id
+		<if test="name != null">and name LIKE '%${name}%'</if>
+		<if test="id != null">and id = #{id}</if>
+		LIMIT #{startIndex},#{pageSize}
+	</select>
+	<!-- 佣金列表数目 -->
+	<select id="getCommissionManagerListCount" resultType="Long" parameterType="java.util.Map">
+		SELECT count(*) from tb_building 
+		where DELETE_FLAG='0' 
+		<if test="name != null">and name LIKE '%${name}%'</if>
+		<if test="id != null">and id = #{id}</if>
+	</select>
+</mapper>

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.fml.mvc.dao.intf.TsUserDao">
+<!--经济人 -->
+<resultMap id="Agent" type="java.util.Map">
+        <id property="id" column="ID" />
+        <result property="phoneNo" column="PHONE_NO" />
+        <result property="userName" column="USER_NAME" />
+         <result property="sex" column="SEX" />
+        <result property="agencyName" column="AGENCY_NAME" />
+    </resultMap>
+    <!--关键人 -->
+    <resultMap id="key" type="java.util.Map">
+        <id property="id" column="ID" />
+        <result property="phoneNo" column="PHONE_NO" />
+          <result property="userName" column="USER_NAME" />
+         <result property="sex" column="SEX" />
+        <result property="agencyName" column="AGENCY_NAME" />
+    </resultMap>
+	<!-- 取得用户 -->
+	<select id="getUserByPhone" resultType="TsUser" parameterType="java.lang.String">
+		select * From ts_user
+		where DELETE_FLAG = '0' and PHONE_NO = #{phoneNo}
+	</select>
+<select id="selectAdminByName" resultType="TsUser" parameterType="java.lang.String">
+		select PASSWORD,USER_NAME From ts_user
+		where DELETE_FLAG = '0' and USER_NAME = #{name} and ROLE_CODE='admin'
+	</select>
+	
+	
+	<select id="getadminList" resultType="TsUser" parameterType="java.lang.String">
+		SELECT USER_NAME from ts_user
+		where DELETE_FLAG='0' and ROLE_CODE='admin'
+		<if test="name != null">and name LIKE '%${name}%'</if>
+		<if test="id != null">and id = #{id}</if>
+		LIMIT #{startIndex},#{pageSize}
+	</select>
+	
+<select  id="getadminListCount" resultType="Long" parameterType="java.util.Map">
+		SELECT count(*) from  ts_user
+		where DELETE_FLAG='0' and ROLE_CODE='admin'
+		<if test="name != null">and name LIKE '%${name}%'</if>
+		<if test="id != null">and id = #{id}</if>
+	</select>
+	<!-- 添加管理员 -->
+	<insert id="addAdmin"  parameterType="java.lang.String">
+	insert into ts_user(USER_NAME,PASSWORD,ROLE_CODE,DELETE_FLAG) values(#{0},#{1},'admin','0')
+	</insert>  
+	<!-- 删除管理员 -->
+	<delete id="deleteAdmin">
+	delete from ts_user where USER_NAME=#{adminname}
+	</delete>
+	<!-- 经纪人列表 -->
+	<select id="getAgentList" resultMap="Agent" parameterType="java.util.Map">
+		SELECT a.USER_NAME,a.PHONE_NO, a.SEX,b.AGENCY_NAME from ts_user a join TB_STORE b on a.TB_STORE_ID = b.ID 
+		where a.DELETE_FLAG='0' and a.ROLE_CODE='agent'
+		<if test="name != null">and a.USER_NAME LIKE '%${name}%'</if>
+		<if test="id != null">and b.AGENCY_NAME= #{id}</if>
+		LIMIT #{startIndex},#{pageSize}
+	</select>
+	<!-- 经纪人数目列表 -->
+<select  id="getAgentListCount" resultType="Long" parameterType="java.util.Map">
+		SELECT count(*) from  ts_user
+		where DELETE_FLAG='0' and ROLE_CODE='agent'
+		<if test="name != null">and name LIKE '%${name}%'</if>
+		<if test="id != null">and id = #{id}</if>
+	</select>
+	
+	<!-- 关键人列表 -->
+	<select id="getKeyList" resultMap="key" parameterType="java.util.Map">
+		SELECT a.USER_NAME,a.PHONE_NO, a.SEX,b.AGENCY_NAME from ts_user a join TB_STORE b on a.TB_STORE_ID = b.ID 
+		where a.DELETE_FLAG='0' and a.ROLE_CODE='key'
+		<if test="name != null">and a.USER_NAME LIKE '%${name}%'</if>
+		<if test="id != null">and b.AGENCY_NAME= #{id}</if>
+		LIMIT #{startIndex},#{pageSize}
+	</select>
+	<!-- 关键人数目列表 -->
+<select  id="getKeyListCount" resultType="Long" parameterType="java.util.Map">
+		SELECT count(*) from  ts_user
+		where DELETE_FLAG='0' and ROLE_CODE='key'
+		<if test="name != null">and name LIKE '%${name}%'</if>
+		<if test="id != null">and id = #{id}</if>
+	</select>
+	
+	
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

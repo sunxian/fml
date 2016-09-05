@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.fml.mvc.dao.intf.MainDataDao">
+
+	<resultMap id="areaDataMap" type="java.util.Map">
+        <id property="id" column="ID" />
+        <result property="shortName" column="SHORTNAME" />
+        <result property="level" column="LEVEL" />
+        <result property="parentid" column="PARENTID" />
+        <result property="lng" column="LNG" />
+        <result property="lat" column="LAT" />
+    </resultMap>
+    
+	
+	
+	<select id="getAreaData" resultMap="areaDataMap" parameterType="java.lang.Long">
+		SELECT t.ID,t.SHORTNAME,t.LEVEL,t.PARENTID,t.LNG,t.LAT FROM ts_area t WHERE PARENTID = #{areaId}
+		ORDER BY t.SORT ASC
+	</select>
+	
+	
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

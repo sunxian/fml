@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.fml.mvc.dao.intf.HouseBanDao">
+
+	<resultMap id="houseBanInfo" type="java.util.Map">
+        <id property="id" column="ID" />
+        <result property="name" column="NAME" />
+        <result property="units" column="UNITS" />
+        <result property="layers" column="LAYERS" />
+        <result property="houseRatio" column="HOUSE_RATIO" />
+         <result property="openTime" column="OPEN_TIME" />
+        <result property="leadTime" column="LEAD_TIME" />
+         <result property="imageUrl" column="IMAGE_URL" />
+        <result property="salingHouses" column="SALING_HOUSES" />
+        <result property="mainHouseType" column="NAME1" />
+        <!-- 楼栋管理 -->
+    </resultMap>
+    	<resultMap id="houseBanManager" type="java.util.Map">
+        <id property="id" column="ID" />
+        <result property="name" column="NAME" />
+        <result property="units" column="UNITS" />
+        <result property="layers" column="LAYERS" />
+        <result property="houseRatio" column="HOUSE_RATIO" />
+         <result property="openTime" column="OPEN_TIME" />
+        <result property="leadTime" column="LEAD_TIME" />
+         <result property="imageUrl" column="IMAGE_URL" />
+        <result property="salingHouses" column="SALING_HOUSES" />
+        <result property="buildingName" column="buildingName" />
+        <result property="buildingId" column="TB_BUILDING_ID" />
+    </resultMap>
+    
+	<select id="queryHouseBanList" resultMap="houseBanInfo" >
+		SELECT ID,NAME,UNITS,LAYERS,HOUSE_RATIO FROM TB_HOUSE_BAN 
+		WHERE DELETE_FLAG='0' AND IS_SALING_FLAG='1' AND TB_BUILDING_ID=#{buildingId} 	
+		ORDER BY UPDATE_TIME DESC
+	</select>
+	<!--楼栋信息接口-->
+	<select id="queryHouseBanInfoList" resultMap="houseBanInfo" >
+		SELECT a.ID,a.NAME,a.OPEN_TIME,a.LEAD_TIME,a.IMAGE_URL,a.UNITS,a.SALING_HOUSES,a.LAYERS,a.HOUSE_RATIO,b.NAME as NAME1 FROM TB_HOUSE_BAN a
+		JOIN TB_HOUSE_TYPE b  on a.ID=b.TB_HOUSE_BAN_ID
+		WHERE a.DELETE_FLAG='0' AND a.IS_SALING_FLAG='1' AND a.TB_BUILDING_ID=#{buildingId} AND b.IS_MAIN_FLAG='1'	
+		ORDER BY a.UPDATE_TIME DESC
+	</select>
+	<!-- 查找其它户型 -->
+<select id="queryOtherhouseType" resultType="java.lang.String">
+SELECT NAME from TB_HOUSE_TYPE WHERE DELETE_FLAG='0' AND IS_MAIN_FLAG='0'
+</select>
+
+<!-- 添加楼栋 -->
+<insert id="addHouseBan" parameterType="java.util.List">
+        INSERT INTO tb_house_ban(NAME,OPEN_TIME,LEAD_TIME,UNITS,HOUSE_RATIO,LAYERS,SALING_HOUSES,IS_SALING_FLAG,DELETE_FLAG,TB_BUILDING_ID)
+        VALUES
+        <foreach collection="list" item="item" index="index" open="" close="" separator=",">
+            (#{item.name},#{item.openTime},#{item.leadTime},#{item.units},#{item.houseRatio},#{item.layers},
+            #{item.salingHouses},#{item.isSalingFlag},'0',#{item.buildingId})
+        </foreach>
+</insert>
+<!--  楼栋管理列表-->
+<select id="HouseBanManagerList" resultMap="houseBanManager" >
+		SELECT  a.ID,a.TB_BUILDING_ID,b.name as buildingName,a.NAME,a.OPEN_TIME,a.LEAD_TIME,a.IMAGE_URL,a.UNITS,a.SALING_HOUSES,a.LAYERS,a.HOUSE_RATIO FROM TB_HOUSE_BAN a
+		join tb_building  b  on a.TB_BUILDING_ID=b.id   WHERE a.DELETE_FLAG='0'	
+		<if test="buildingName != null">and b.name LIKE '%${buildingName}%'</if>
+		<if test="name != null">and a.name=#{name}</if>
+		LIMIT #{startIndex},#{pageSize}
+	</select>
+	<!-- 楼栋数目 -->
+	<select id="getHouseBanManagerCount" resultType="Long" parameterType="java.util.Map">
+		SELECT count(*) from TB_HOUSE_BAN 
+		where DELETE_FLAG='0' 
+		<if test="name != null">and name LIKE '%${name}%'</if>
+		<if test="id != null">and id = #{id}</if>
+	</select>
+<!-- 搜索需要修改的楼栋  -->	
+<select id="selectHouseBanToUpdate" resultType="TbHouseBan" parameterType="java.lang.Long">
+	SELECT a.ID,a.TB_BUILDING_ID as buidingId,b.name as buildingName,a.IS_SALING_FLAG,a.NAME,a.OPEN_TIME,a.LEAD_TIME,a.IMAGE_URL,a.UNITS,
+	a.SALING_HOUSES,a.LAYERS,a.HOUSE_RATIO FROM TB_HOUSE_BAN a
+		join tb_building b on a.TB_BUILDING_ID=b.id   WHERE a.DELETE_FLAG='0'	
+		and a.id=#{id}
+	</select>
+<!-- 修改楼栋-->
+	<update id="updateHouseBan" parameterType="cn.com.fml.mvc.dmo.TbHouseBan">
+	update TB_HOUSE_BAN set name=#{name},OPEN_TIME=#{openTime},LEAD_TIME=#{leadTime},UNITS=#{units},HOUSE_RATIO=#{houseRatio},
+LAYERS=#{layers},SALING_HOUSES=#{salingHouses},IS_SALING_FLAG=#{isSalingFlag}
+	where id=#{id}
+	</update>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

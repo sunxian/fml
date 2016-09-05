@@ -1,0 +1,17 @@
+package cn.com.fml.mvc.dao.intf;
+
+import java.util.List;
+import java.util.Map;
+
+public interface TbCommissionDao {
+	//佣金详情
+	List<Map<String, Object>> getCommissionById(Long id);
+	//用户佣金
+	Double getAmount(String status);
+	//佣金列表
+	 List<Map<String, Object>> queryCommissionList();
+	//佣金管理列表
+	 List<Map<String, Object>> getCommissionManagerList(Map<String, Object> param);
+		//佣金管理列表数目
+		Long getCommissionManagerListCount(Map<String, Object> param);
+}
